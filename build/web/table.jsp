@@ -126,17 +126,7 @@
                                 <tbody>
 
                                     <tr>
-                                        <%
-                                            if(request.getAttribute("beanList") != null || request.getAttribute("beanList")== ""){
-                                            ArrayList<TransactionDetailBean> list = (ArrayList<TransactionDetailBean>) request.getAttribute("beanList");
-
-
-                                            for (TransactionDetailBean bean : list) {%>
-                                            <td> <% if(bean.getF2_PAN() != null){out.println(bean.getF2_PAN()); }%></td>
-                                             <td> <% if(bean.getF4_AMOUNT_TRANS() != null) {out.println(bean.getF4_AMOUNT_TRANS()); }%><td>
-                                                
-                                         <%   }}
-                                        %>
+                                        
 
                                     </tr> 
 
