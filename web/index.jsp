@@ -116,7 +116,7 @@
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
-                                       
+                                        <th>#</th>
                                         <th>Card Number</th>
                                         <th>Transaction Amount</th>
                                         <th>Time(Local Transaction)</th>
