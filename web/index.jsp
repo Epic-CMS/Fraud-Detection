@@ -133,19 +133,28 @@
                                 <tbody>
                                    
                                        <%
-                                            if(request.getAttribute("beanList") != null || request.getAttribute("beanList")== ""){
-                                            ArrayList<TransactionDetailBean> list = (ArrayList<TransactionDetailBean>) request.getAttribute("beanList");
+                                           if(request.getAttribute("beanList") != null || request.getAttribute("beanList")== ""){
+                                           ArrayList<TransactionDetailBean> list = (ArrayList<TransactionDetailBean>) request.getAttribute("beanList");
+                                           int i = 0;
 
-
-                                            for (TransactionDetailBean bean : list) {%>
-                                            <tr>
-                                            <td> <% if(bean.getF2_PAN() != null){out.println(bean.getF2_PAN()); }%></td>
-                                             <td> <% if(bean.getF4_AMOUNT_TRANS() != null) {out.println(bean.getF4_AMOUNT_TRANS()); }%></td>
-                                             <td> <% if(bean.getF12_LOCAL_TIME() != null) {out.println(bean.getF12_LOCAL_TIME()); }%></td> 
-                                             <td> <% if(bean.getF13_LOCAL_DATE() != null) {out.println(bean.getF13_LOCAL_DATE()); }%></td>
-                                            </tr>
-                                         <%   }}
-                                        %>
+                                           for (TransactionDetailBean bean : list) { 
+                                                i++;                                        %>
+                                               <tr>
+                                               <td> <% {out.println(i); } %></td>
+                                               <td> <% if(bean.getF2_PAN() != null){out.println(bean.getF2_PAN()); }else{out.println("--"); }%></td>
+                                               <td> <% if(bean.getF4_AMOUNT_TRANS() != null) {out.println(bean.getF4_AMOUNT_TRANS()); }else{out.println("--"); } %></td>
+                                               <td> <% if(bean.getF12_LOCAL_TIME() != null) {out.println(bean.getF12_LOCAL_TIME()); }else{out.println("--"); } %></td>
+                                               <td> <% if(bean.getF13_LOCAL_DATE() != null) {out.println(bean.getF13_LOCAL_DATE()); }else{out.println("--"); } %></td>
+                                               <td> <% if(bean.getF18_MERCHANT_TYPE() != null) {out.println(bean.getF18_MERCHANT_TYPE()); }else{out.println("--"); } %></td>
+                                               <td> <% if(bean.getF14_DATE_EXPIRATION() != null) {out.println(bean.getF14_DATE_EXPIRATION()); }else{out.println("--"); } %></td>
+                                               <td> <% if(bean.getF11_SYSTEM_TRACE() != null) {out.println(bean.getF11_SYSTEM_TRACE()); }else{out.println("--"); } %></td>
+                                               <td> <% if(bean.getF41_CARD_ACCEPT_TERM_IDEN() != null) {out.println(bean.getF41_CARD_ACCEPT_TERM_IDEN()); }else{out.println("--"); } %></td>
+                                               <td> <% if(bean.getF42_CARD_ACCEPT_IDEN_CODE() != null) {out.println(bean.getF42_CARD_ACCEPT_IDEN_CODE()); }else{out.println("--"); } %></td>
+                                               <td> <% if(bean.getF43_CARD_ACCCEPT_NAME() != null) {out.println(bean.getF43_CARD_ACCCEPT_NAME()); }else{out.println("--"); } %></td>
+                                               <td> <% if(bean.getF49_CURRENCY_CODE_TRANS() != null) {out.println(bean.getF49_CURRENCY_CODE_TRANS()); }else{out.println("--"); } %></td>
+                                                </tr> 
+                                        <%   }}
+                                       %>
                                    
                                 </tbody>
                             </table>
