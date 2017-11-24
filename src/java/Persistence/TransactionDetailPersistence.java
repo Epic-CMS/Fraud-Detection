@@ -77,9 +77,13 @@ public class TransactionDetailPersistence {
                 bean.setF4_AMOUNT_TRANS(rs.getString("F4_AMOUNT_TRANS"));
                 bean.setF12_LOCAL_TIME(rs.getString("F12_LOCAL_TIME"));
                 bean.setF13_LOCAL_DATE(rs.getString("F13_LOCAL_DATE"));
-                
-                
-                
+                bean.setF18_MERCHANT_TYPE(rs.getString("F18_MERCHANT_TYPE"));
+                bean.setF14_DATE_EXPIRATION(rs.getString("F14_DATE_EXPIRATION"));
+                bean.setF11_SYSTEM_TRACE(rs.getString("F11_SYSTEM_TRACE"));
+                bean.setF41_CARD_ACCEPT_TERM_IDEN(rs.getString("F41_CARD_ACCEPT_TERM_IDEN"));
+                bean.setF42_CARD_ACCEPT_IDEN_CODE(rs.getString("F42_CARD_ACCEPT_IDEN_CODE"));
+                bean.setF43_CARD_ACCCEPT_NAME(rs.getString("F43_CARD_ACCCEPT_NAME"));
+                bean.setF49_CURRENCY_CODE_TRANS(rs.getString("F49_CURRENCY_CODE_TRANS"));
                 tranList.add(bean);
                 i++; 
             }
