@@ -111,12 +111,12 @@
 
                     <div class="bs-example4" data-example-id="contextual-table">
                         <!-- /.table-responsive -->
-                        <a href="./Test"><button type="button" class="btn btn_2 btn-lg btn-primary">Show</button></a>
+                        <a href="./Test"><button type="button" class="btn btn_2 btn-md btn-primary">Show</button></a>
                         <div class="table-responsive">
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
-                                       
+                                        <th>#</th>
                                         <th>Card Number</th>
                                         <th>Transaction Amount</th>
                                         <th>Time(Local Transaction)</th>

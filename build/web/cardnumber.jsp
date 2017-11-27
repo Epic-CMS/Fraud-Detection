@@ -283,6 +283,14 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                           <label><h5>Transactions</h5></label>
                                         </div>
                                     </div>
+                                    <div class="row" style="background-color: #f2f4f8; padding-top: 10px; margin-left: 30px; margin-right: 20px;">
+                                        <div class="col-md-8" ></div>
+                                        <div class="col-md-4" >
+                                            <a href="#"><button type="button" class="btn btn_2 btn-md btn-default">Cancel</button></a>
+                                            <a href="#"><button type="button" class="btn btn_2 btn-md btn-primary">Review and Activate</button></a>
+                                        </div>
+                                        
+                                    </div>
                                 </div>
                                 
                         </form>
