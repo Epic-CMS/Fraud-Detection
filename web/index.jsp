@@ -111,7 +111,7 @@
 
                     <div class="bs-example4" data-example-id="contextual-table">
                         <!-- /.table-responsive -->
-                        <a href="./Test"><button type="button" class="btn btn_2 btn-lg btn-primary">Show</button></a>
+                        <a href="./Test"><button type="button" class="btn btn_2 btn-md btn-primary">Show Table</button></a> <br><br>
                         <div class="table-responsive">
                             <table class="table table-bordered">
                                 <thead>
@@ -143,8 +143,21 @@
                                                <td> <% {out.println(i); } %></td>
                                                <td> <% if(bean.getF2_PAN() != null){out.println(bean.getF2_PAN()); }else{out.println("--"); }%></td>
                                                <td> <% if(bean.getF4_AMOUNT_TRANS() != null) {out.println(bean.getF4_AMOUNT_TRANS()); }else{out.println("--"); } %></td>
-                                               <td> <% if(bean.getF12_LOCAL_TIME() != null) {out.println(bean.getF12_LOCAL_TIME()); }else{out.println("--"); } %></td>
-                                               <td> <% if(bean.getF13_LOCAL_DATE() != null) {out.println(bean.getF13_LOCAL_DATE()); }else{out.println("--"); } %></td>
+                                               <td> <% if(bean.getF12_LOCAL_TIME() != null) {
+                                                        String time = bean.getF12_LOCAL_TIME();
+                                                        String[] parts = {time.substring(0, 2),time.substring(2,4),time.substring(4)};
+                                                        out.println(parts[0] +" :"+ parts[1]+" :"+ parts[2]); 
+                                                       }else{
+                                                        out.println("--"); 
+                                                       } %></td>
+                                               <td> <% if(bean.getF13_LOCAL_DATE() != null) {
+                                                        String date = bean.getF13_LOCAL_DATE();
+                                                        String[] parts = {date.substring(0, 2),date.substring(2)};
+                                                        out.println(parts[1] +" - "+ parts[0]); 
+                                                    }else{
+                                                        out.println("--"); 
+                                                    } %></td>
+                                               
                                                <td> <% if(bean.getF18_MERCHANT_TYPE() != null) {out.println(bean.getF18_MERCHANT_TYPE()); }else{out.println("--"); } %></td>
                                                <td> <% if(bean.getF14_DATE_EXPIRATION() != null) {out.println(bean.getF14_DATE_EXPIRATION()); }else{out.println("--"); } %></td>
                                                <td> <% if(bean.getF11_SYSTEM_TRACE() != null) {out.println(bean.getF11_SYSTEM_TRACE()); }else{out.println("--"); } %></td>
