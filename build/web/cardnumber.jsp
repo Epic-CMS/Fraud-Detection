@@ -267,10 +267,20 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                 <!-- END OF SECOND STATEMENT -->
                                 
                                 <div class="form-group">
-                                    <div class="col-sm-12">
-                                        <label><h5>Otherwise I want to</h5></label>
-                                        <div class="col-sm-9">
-                                                <input type="text" class="form-control1" id="focusedinput" placeholder="">
+                                    
+                                    <div class="row" style="background-color: #f2f4f8; padding-top: 10px; margin-left: 30px; margin-right: 20px;">
+                                        <div class="col-md-1">
+                                            <label><h5>Otherwise I want to</h5></label>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <select class="selectpicker">
+                                                <option>Pass</option>
+                                                <option>Hold</option>
+                                                <option>Block</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-1">
+                                          <label><h5>Transactions</h5></label>
                                         </div>
                                     </div>
                                 </div>
