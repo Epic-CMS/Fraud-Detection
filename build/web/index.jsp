@@ -120,7 +120,7 @@
                                         <th>Card Number</th>
                                         <th>Transaction Amount</th>
                                         <th>Time(Local Transaction)</th>
-                                        <th>Date(Local Transaction)</th>
+                                        <th>Date()</th>
                                         <th>Merchant Type</th>
                                         <th>STAN</th>
                                         <th>Expiration Date</th>
