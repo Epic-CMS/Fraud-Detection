@@ -86,7 +86,7 @@
                                         <a href="grids.html">Card Number</a>
                                         <a href="grids.html">Customer</a>
                                         <a href="grids.html">Geographic</a>
-                                        <a href="grids.html">Amount</a>
+                                        <a href="amount.jsp">Amount</a>
                                         <a href="grids.html">Product Details</a>
                                     </li>
                                 </ul>
@@ -120,7 +120,7 @@
                                         <th>Card Number</th>
                                         <th>Transaction Amount</th>
                                         <th>Time(Local Transaction)</th>
-                                        <th>Date(Local Transaction)</th>
+                                        <th>Date()</th>
                                         <th>Merchant Type</th>
                                         <th>STAN</th>
                                         <th>Expiration Date</th>
