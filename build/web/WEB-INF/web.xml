@@ -5,16 +5,32 @@
         <servlet-class>main.Test</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>Profile</servlet-name>
-        <servlet-class>main.Profile</servlet-class>
+        <servlet-name>ViewProfile</servlet-name>
+        <servlet-class>main.ViewProfile</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddProfile</servlet-name>
+        <servlet-class>main.AddProfile</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteProfile</servlet-name>
+        <servlet-class>main.DeleteProfile</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Test</servlet-name>
         <url-pattern>/Test</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>Profile</servlet-name>
-        <url-pattern>/Profile</url-pattern>
+        <servlet-name>ViewProfile</servlet-name>
+        <url-pattern>/ViewProfile</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddProfile</servlet-name>
+        <url-pattern>/AddProfile</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteProfile</servlet-name>
+        <url-pattern>/DeleteProfile</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

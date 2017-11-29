@@ -9,10 +9,10 @@ import Bean.ProfileLevelBean;
 import Manager.ProfileLevelManager;
 import java.io.IOException;
 import java.io.PrintWriter;
-import static java.lang.System.out;
+import java.sql.SQLException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -22,49 +22,30 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author dilumka_g
  */
-public class Profile extends HttpServlet {
+public class ViewProfile extends HttpServlet {
 
-    int l_name,l_from,l_to,x;
-    ProfileLevelManager manager;
-    ProfileLevelBean bean=new ProfileLevelBean();
-    
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-                response.setContentType("text/html;charset=UTF-8");
-                try (PrintWriter pw = response.getWriter()) {
-                    l_name=Integer.parseInt(request.getParameter("l_name"));
-                    l_from=Integer.parseInt(request.getParameter("l_from"));
-                    l_to=Integer.parseInt(request.getParameter("l_to"));
-                    manager = new ProfileLevelManager();
-                    
-                    bean.setLEVEL_NAME(l_name);
-                    bean.setLEVEL_FROM(l_from);
-                    bean.setLEVEL_TO(l_to);
-                    System.out.print(bean.getLEVEL_NAME());
-                    x = manager.addProfile(bean);
-                    
-                    if (x > 0) {
-                        pw.println("<script type=\"text/javascript\">");
-                        pw.println("alert('Successfully Inserted');");
-                        pw.println("</script>");
+            throws ServletException, IOException, SQLException, Exception {
+        PrintWriter out = response.getWriter();
+        response.setContentType("text/html;charset=UTF-8");
+        ProfileLevelManager manager = new ProfileLevelManager();
+        List<ProfileLevelBean> beanList = null;
+       
+        beanList = manager.getProfileLevelList();
+      
+        request.setAttribute("beanList", beanList);
+        getServletConfig().getServletContext().getRequestDispatcher("/amount.jsp").forward(request,response);
+    }
 
-                    } else {
-                        pw.println("<script type=\"text/javascript\">");
-                        pw.println("alert('Not Inserted');");
-                        pw.println("</script>");
-                    }
-
-                    RequestDispatcher rd=request.getRequestDispatcher("./profile_levels.jsp");
-                    rd.forward(request,response);
-                    
-                }catch(Exception e){
-                    out.print(e);
-                }finally{
-                    out.close();
-
-                }
-            }
-    
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -80,7 +61,7 @@ public class Profile extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (Exception ex) {
-            Logger.getLogger(Test.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ViewProfile.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -98,7 +79,7 @@ public class Profile extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (Exception ex) {
-            Logger.getLogger(Test.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ViewProfile.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -111,8 +92,5 @@ public class Profile extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
 }
-
-    
-
-

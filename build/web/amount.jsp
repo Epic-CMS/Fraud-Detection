@@ -1,3 +1,4 @@
+<%@page import="Bean.ProfileLevelBean"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="Bean.TransactionDetailBean"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -104,69 +105,44 @@
             <div id="page-wrapper">
                 <ul class="breadcrumb">
                     <li><a href="index.jsp">Dashboard</a></li>
-                    <li><a href="amount.jsp">Amount</a></li>
+                    <li><a href="ViewProfile">Amount</a></li>
                 </ul>
                 <div class="graphs">
-                    <a href="profile_levels.jsp"><button type="button" class="btn btn_5 btn-lg btn-primary">Add/Update Profile Levels</button></a>
+                    <a href="add_profile_levels.jsp"><button type="button" class="btn btn_5 btn-lg btn-primary">Add Profile Levels</button></a>
                     <br><br>
 
                     <div class="bs-example4" data-example-id="contextual-table">
                         <!-- /.table-responsive -->
-                        <a href="./Test"><button type="button" class="btn btn_2 btn-md btn-primary">Show Table</button></a><br><br>
+                        
                         <div class="table-responsive">
-                            <table class="table table-bordered">
+                            <table class="table table-bordered" id="myTable">
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Card Number</th>
-                                        <th>Transaction Amount</th>
-                                        <th>Time(Local Transaction)</th>
-                                        <th>Date()</th>
-                                        <th>Merchant Type</th>
-                                        <th>STAN</th>
-                                        <th>Expiration Date</th>
-                                        <th>Terminal Code</th>
-                                        <th>Merchant Code</th>
-                                        <th>Merchant Name/Location</th>
-                                        <th>Currency Code</th>
+                                        <th>Profile Level</th>
+                                        <th>Limit From</th>
+                                        <th>Limit To</th>
+                                        <th>Action</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                    
                                        <%
                                            if(request.getAttribute("beanList") != null || request.getAttribute("beanList")== ""){
-                                           ArrayList<TransactionDetailBean> list = (ArrayList<TransactionDetailBean>) request.getAttribute("beanList");
+                                           ArrayList<ProfileLevelBean> list = (ArrayList<ProfileLevelBean>) request.getAttribute("beanList");
                                            int i = 0;
 
-                                           for (TransactionDetailBean bean : list) { 
+                                           for (ProfileLevelBean bean : list) { 
                                                 i++;                                        %>
                                                <tr>
-                                               <td> <% {out.println(i); } %></td>
-                                               <td> <% if(bean.getF2_PAN() != null){out.println(bean.getF2_PAN()); }else{out.println("--"); }%></td>
-                                               <td> <% if(bean.getF4_AMOUNT_TRANS() != null) {out.println(bean.getF4_AMOUNT_TRANS()); }else{out.println("--"); } %></td>
-                                               <td> <% if(bean.getF12_LOCAL_TIME() != null) {
-                                                        String time = bean.getF12_LOCAL_TIME();
-                                                        String[] parts = {time.substring(0, 2),time.substring(2,4),time.substring(4)};
-                                                        out.println(parts[0] +" :"+ parts[1]+" :"+ parts[2]); 
-                                                       }else{
-                                                        out.println("--"); 
-                                                       } %></td>
-                                               <td> <% if(bean.getF13_LOCAL_DATE() != null) {
-                                                        String date = bean.getF13_LOCAL_DATE();
-                                                        String[] parts = {date.substring(0, 2),date.substring(2)};
-                                                        out.println(parts[1] +" - "+ parts[0]); 
-                                                    }else{
-                                                        out.println("--"); 
-                                                    } %></td>
-                                               
-                                               <td> <% if(bean.getF18_MERCHANT_TYPE() != null) {out.println(bean.getF18_MERCHANT_TYPE()); }else{out.println("--"); } %></td>
-                                               <td> <% if(bean.getF14_DATE_EXPIRATION() != null) {out.println(bean.getF14_DATE_EXPIRATION()); }else{out.println("--"); } %></td>
-                                               <td> <% if(bean.getF11_SYSTEM_TRACE() != null) {out.println(bean.getF11_SYSTEM_TRACE()); }else{out.println("--"); } %></td>
-                                               <td> <% if(bean.getF41_CARD_ACCEPT_TERM_IDEN() != null) {out.println(bean.getF41_CARD_ACCEPT_TERM_IDEN()); }else{out.println("--"); } %></td>
-                                               <td> <% if(bean.getF42_CARD_ACCEPT_IDEN_CODE() != null) {out.println(bean.getF42_CARD_ACCEPT_IDEN_CODE()); }else{out.println("--"); } %></td>
-                                               <td> <% if(bean.getF43_CARD_ACCCEPT_NAME() != null) {out.println(bean.getF43_CARD_ACCCEPT_NAME()); }else{out.println("--"); } %></td>
-                                               <td> <% if(bean.getF49_CURRENCY_CODE_TRANS() != null) {out.println(bean.getF49_CURRENCY_CODE_TRANS()); }else{out.println("--"); } %></td>
-                                                </tr> 
+                                               <td> <% out.println(i);  %></td>
+                                               <td> <% out.println(bean.getLEVEL_NAME());%></td>
+                                               <td> <% out.println(bean.getLEVEL_FROM());%></td>
+                                               <td> <% out.println(bean.getLEVEL_TO());%></td>
+                                               <td><input type="button" value="Edit" onclick="updateUser($(this).closest('tr').index());"></input></td>
+                                               <td><input type="button" value="Delete" onclick="deleteUser($(this).closest('tr').index());"></input></td>
+                                               </tr> 
                                         <%   }}
                                        %>
                                    
@@ -181,8 +157,57 @@
             </div>
             <!-- /#page-wrapper -->
         </div>
-        <!-- /#wrapper -->
-        <!-- Bootstrap Core JavaScript -->
+        <script type="text/javascript">
+            function updateUser(row) {
+                var oTable = document.getElementById('myTable');
+                var Cells = oTable.rows.item(row+1).cells;
+                $(".modal-body #uid").val(Cells[0].innerText);
+                $(".modal-body #uname").val(Cells[1].innerText);
+
+                $(".modal-body #uemail").val(Cells[3].innerText);
+                $(".modal-body #umobile").val(Cells[4].innerText);
+
+                $('#userUpdate').modal('show');
+
+            }
+
+            function deleteUser(row) {
+
+                var oTable = document.getElementById('myTable');
+
+                //var rowLength = oTable.rows.length;
+                var Cells = oTable.rows.item(row+1).cells;
+                var value = Cells.item(1).innerHTML;
+                
+                alert(value);
+                url = "DeleteProfile";
+                window.location.href = "http://localhost:8080/Fraud-Detection/" + url + "?id=" + value;
+                alert("http://localhost:8080/Fraud-Detection/" + url + "?id=" + value);
+                //var value=document.getElementById('uid').value = oCells.item(0).innerHTML;    
+            }
+
+            function myFunction() {
+// Declare variables 
+                var input, filter, table, tr, td, i;
+                input = document.getElementById("myInput");
+                filter = input.value.toUpperCase();
+                table = document.getElementById("myTable");
+                tr = table.getElementsByTagName("tr");
+
+                // Loop through all table rows, and hide those who don't match the search query
+                for (i = 0; i < tr.length; i++) {
+                  td = tr[i].getElementsByTagName("td")[1];
+                  if (td) {
+                    if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                      tr[i].style.display = "";
+
+                    } else {
+                      tr[i].style.display = "none";
+                    }
+                  } 
+                }
+            }
+        </script>
         <script src="js/bootstrap.min.js"></script>
     </body>
 </html>

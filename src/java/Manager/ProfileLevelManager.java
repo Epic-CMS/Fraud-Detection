@@ -10,6 +10,7 @@ import DBConnection.DBConnection;
 import Persistence.ProfileLevelPersistence;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  *
@@ -26,6 +27,51 @@ public class ProfileLevelManager {
             con = DBConnection.getConnection();
             persistence = new ProfileLevelPersistence();
             x=persistence.addProfile(con,bean);
+        } catch (Exception ex) {
+            throw ex;
+        } finally {
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    throw e;
+                }
+            }
+        }
+        return x;
+    }
+
+    public List<ProfileLevelBean> getProfileLevelList() throws Exception {
+        List<ProfileLevelBean> beanList;
+        ProfileLevelPersistence persistence;
+        
+        
+        try {
+            con = DBConnection.getConnection();
+            persistence = new ProfileLevelPersistence();
+            con.setAutoCommit(true);
+            beanList = persistence.getProfileLevelList(con);
+        } catch (Exception ex) {
+            throw ex;
+        } finally {
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    throw e;
+                }
+            }
+        }
+        return beanList;
+    }
+
+    public int deleteProfile(int id1) throws SQLException, Exception {
+       ProfileLevelPersistence persistence;
+        
+        try {
+            con = DBConnection.getConnection();
+            persistence = new ProfileLevelPersistence();
+            x=persistence.deleteProfile(con,id1);
         } catch (Exception ex) {
             throw ex;
         } finally {

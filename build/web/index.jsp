@@ -86,7 +86,7 @@
                                         <a href="grids.html">Card Number</a>
                                         <a href="grids.html">Customer</a>
                                         <a href="grids.html">Geographic</a>
-                                        <a href="amount.jsp">Amount</a>
+                                        <a href="ViewProfile">Amount</a>
                                         <a href="grids.html">Product Details</a>
                                     </li>
                                 </ul>

@@ -104,67 +104,52 @@
             <div id="page-wrapper">
                 <ul class="breadcrumb">
                     <li><a href="index.jsp">Dashboard</a></li>
-                    <li><a href="amount.jsp">Amount</a></li>
-                    <li><a href="profile_levels.jsp">Profile Levels</a></li>
+                    <li><a href="ViewProfile">Amount</a></li>
+                    <li><a href="add_profile_levels.jsp">Add Profile Levels</a></li>
                 </ul>
                 <div class="graphs">
                     <div class="container">
                         <div class="row">
-                            <div class="col-md-10">
-                                <div class="card">
-                                    <ul class="nav nav-tabs" role="tablist">
-                                        <li role="presentation" class="active"><a href="#add" aria-controls="add" role="tab" data-toggle="tab">Add Profile Levels</a></li>
-                                        <li role="presentation"><a href="#update" aria-controls="update" role="tab" data-toggle="tab">Update Profile Levels</a></li>
-                                    </ul>
-
-                                    <!-- Tab panes -->
-                                    <div class="tab-content">
-                                        <div role="tabpanel" class="tab-pane active" id="add">
-                                            <form class="form-horizontal" action="Profile" method="post">
-                                                <div class="form-group">
-                                                    <div class="col-sm-6">
-                                                        <label for="focusedinput" class="col-sm-3 control-label"><b>Level:</b></label>
-                                                        <div class="col-sm-9">
-                                                                <input type="text" class="form-control1" name="l_name" placeholder="Level" required="required">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                
-                                                <div class="form-group">
-                                                    <div class="col-sm-6">
-                                                        <label for="focusedinput" class="col-sm-3 control-label"><b>Limit From:</b></label>
-                                                        <div class="col-sm-9">
-                                                                <input type="text" class="form-control1" name="l_from" placeholder="Limit From" required="required">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                
-                                                <div class="form-group">
-                                                    <div class="col-sm-6">
-                                                        <label for="focusedinput" class="col-sm-3 control-label"><b>Limit To:</b></label>
-                                                        <div class="col-sm-9">
-                                                                <input type="text" class="form-control1" name="l_to" placeholder="Limit To" required="required">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                
-                                                <div class="row" style="background-color: #f2f4f8; padding-top: 10px; padding-bottom: 10px; margin-left: 30px; margin-right: 20px;">
-                                                    <div class="col-md-8" ></div>
-                                                    <div class="col-md-4" >
-                                                        
-                                                        <button type="submit" class="btn btn_2 btn-md btn-primary">ADD PROFILE</button>
-                                                    </div>
-
-                                                </div>
-                                            </form>
+                            <div class="col-md-11">
+                                
+                                <form class="form-horizontal" action="AddProfile" method="post">
+                                    <div class="form-group">
+                                        <div class="col-sm-6">
+                                            <label for="focusedinput" class="col-sm-3 control-label"><b>Level:</b></label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control1" name="l_name" placeholder="Level" required="required">
+                                            </div>
                                         </div>
-                                        <div role="tabpanel" class="tab-pane" id="update">
-                                        
-                                        </div>
-                                        
                                     </div>
-                                </div>
-                            </div>
+
+                                    <div class="form-group">
+                                        <div class="col-sm-6">
+                                            <label for="focusedinput" class="col-sm-3 control-label"><b>Limit From:</b></label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control1" name="l_from" placeholder="Limit From" required="required">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-sm-6">
+                                            <label for="focusedinput" class="col-sm-3 control-label"><b>Limit To:</b></label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control1" name="l_to" placeholder="Limit To" required="required">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row" style="background-color: #f2f4f8; padding-top: 10px; padding-bottom: 10px; margin-left: 30px; margin-right: 20px;">
+                                        <div class="col-md-8" ></div>
+                                        <div class="col-md-4" >
+
+                                            <button type="submit" class="btn btn_2 btn-md btn-primary">ADD PROFILE</button>
+                                        </div>
+
+                                    </div>
+                                </form>
+                               
                         </div>
                     </div>
                 </div>
