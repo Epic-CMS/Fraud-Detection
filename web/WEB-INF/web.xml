@@ -16,6 +16,10 @@
         <servlet-name>DeleteProfile</servlet-name>
         <servlet-class>main.DeleteProfile</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UpdateProfile</servlet-name>
+        <servlet-class>main.UpdateProfile</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Test</servlet-name>
         <url-pattern>/Test</url-pattern>
@@ -31,6 +35,10 @@
     <servlet-mapping>
         <servlet-name>DeleteProfile</servlet-name>
         <url-pattern>/DeleteProfile</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateProfile</servlet-name>
+        <url-pattern>/UpdateProfile</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

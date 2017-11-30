@@ -85,4 +85,25 @@ public class ProfileLevelManager {
         }
         return x;
     }
+
+    public int updateProfile(ProfileLevelBean bean) throws SQLException, Exception {
+        ProfileLevelPersistence persistence;
+        
+        try {
+            con = DBConnection.getConnection();
+            persistence = new ProfileLevelPersistence();
+            x=persistence.updateProfile(con,bean);
+        } catch (Exception ex) {
+            throw ex;
+        } finally {
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    throw e;
+                }
+            }
+        }
+        return x; 
+    }
 }

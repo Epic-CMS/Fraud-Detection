@@ -19,12 +19,12 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author dilumka_g
  */
-public class DeleteProfile extends HttpServlet {
+public class UpdateProfile extends HttpServlet {
 
     ProfileLevelManager manager=new ProfileLevelManager();
     ProfileLevelBean bean=new ProfileLevelBean();
     
-    int x,id1;
+    int l_name,l_from,l_to,x;
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -32,11 +32,15 @@ public class DeleteProfile extends HttpServlet {
         PrintWriter pw = response.getWriter();
         try {
             
-            String s =request.getParameter("id");
-            String[] elements = s.split("[\\s\\xA0]+");
-            id1=Integer.parseInt(elements[1]);
+            l_name=Integer.parseInt(request.getParameter("l_name")); 
+            l_from=Integer.parseInt(request.getParameter("l_from"));
+            l_to=Integer.parseInt(request.getParameter("l_to"));
             
-            x=manager.deleteProfile(id1);
+            bean.setLEVEL_NAME(l_name);
+            bean.setLEVEL_FROM(l_from);
+            bean.setLEVEL_TO(l_to);
+            
+            x=manager.updateProfile(bean);
            
         }catch(Exception e){
             out.print(e);

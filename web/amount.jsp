@@ -6,6 +6,7 @@
 <html>
     <head>
         <title>EPIC Fraud Management</title>
+        
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta name="keywords" content="Modern Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template, 
@@ -140,8 +141,8 @@
                                                <td> <% out.println(bean.getLEVEL_NAME());%></td>
                                                <td> <% out.println(bean.getLEVEL_FROM());%></td>
                                                <td> <% out.println(bean.getLEVEL_TO());%></td>
-                                               <td><input type="button" value="Edit" onclick="updateUser($(this).closest('tr').index());"></input></td>
-                                               <td><input type="button" value="Delete" onclick="deleteUser($(this).closest('tr').index());"></input></td>
+                                               <td><input type="button" value="Edit" onclick="updateProfile($(this).closest('tr').index());"></input></td>
+                                               <td><input type="button" value="Delete" onclick="deleteProfile($(this).closest('tr').index());"></input></td>
                                                </tr> 
                                         <%   }}
                                        %>
@@ -151,27 +152,67 @@
                         </div><!-- /.table-responsive -->
                     </div>
 
+                </div>
+            </div>
+                                       
+            <div class="modal fade" id="profileUpdate">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form role="form" class="form-horizontal" action="UpdateProfile" method="post">
+                        <div class="modal-header">
+                            <h4 class="modal-title"><strong>Update Profile Level</strong></h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        </div>
+                        <div class="modal-body">    
+                              <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="exampleInputcode">Level Name</label>
+                                        <input type="text" class="form-control" id="l_name" name="l_name" placeholder="Level Name" maxlength="10" required="required">
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="exampleInputcode">Limit From</label>
+                                        <input type="text" class="form-control" id="l_from" name="l_from" placeholder="Limit From" maxlength="10" required="required">
+                                    </div>
 
+                                    <div class="form-group">
+                                        <label for="exampleInputcode">Limit To</label>
+                                        <input type="text" class="form-control" id="l_to" name="l_to" placeholder="Limit To" maxlength="50" required="required">
+                                    </div>
+
+                                    
+                                </div>
+                         
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Update</button>    
+                            <button type="button" class="btn btn-default left" data-dismiss="modal">Close</button>
+                        </div>
+                    </form>     
 
                 </div>
             </div>
+        </div>
             <!-- /#page-wrapper -->
         </div>
+                                       
+        
         <script type="text/javascript">
-            function updateUser(row) {
+            function updateProfile(row) {
                 var oTable = document.getElementById('myTable');
                 var Cells = oTable.rows.item(row+1).cells;
-                $(".modal-body #uid").val(Cells[0].innerText);
-                $(".modal-body #uname").val(Cells[1].innerText);
-
-                $(".modal-body #uemail").val(Cells[3].innerText);
-                $(".modal-body #umobile").val(Cells[4].innerText);
-
-                $('#userUpdate').modal('show');
+                $(".modal-body #l_name").val(Cells[1].innerText);
+                $(".modal-body #l_from").val(Cells[2].innerText);
+                $(".modal-body #l_to").val(Cells[3].innerText);
+                
+                $('#profileUpdate').modal('show');
 
             }
 
-            function deleteUser(row) {
+            function deleteProfile(row) {
 
                 var oTable = document.getElementById('myTable');
 
@@ -179,34 +220,13 @@
                 var Cells = oTable.rows.item(row+1).cells;
                 var value = Cells.item(1).innerHTML;
                 
-                alert(value);
                 url = "DeleteProfile";
                 window.location.href = "http://localhost:8080/Fraud-Detection/" + url + "?id=" + value;
-                alert("http://localhost:8080/Fraud-Detection/" + url + "?id=" + value);
+                
                 //var value=document.getElementById('uid').value = oCells.item(0).innerHTML;    
             }
 
-            function myFunction() {
-// Declare variables 
-                var input, filter, table, tr, td, i;
-                input = document.getElementById("myInput");
-                filter = input.value.toUpperCase();
-                table = document.getElementById("myTable");
-                tr = table.getElementsByTagName("tr");
-
-                // Loop through all table rows, and hide those who don't match the search query
-                for (i = 0; i < tr.length; i++) {
-                  td = tr[i].getElementsByTagName("td")[1];
-                  if (td) {
-                    if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
-                      tr[i].style.display = "";
-
-                    } else {
-                      tr[i].style.display = "none";
-                    }
-                  } 
-                }
-            }
+            
         </script>
         <script src="js/bootstrap.min.js"></script>
     </body>

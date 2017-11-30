@@ -25,7 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 public class AddProfile extends HttpServlet {
 
     int l_name,l_from,l_to,x;
-    ProfileLevelManager manager;
+    ProfileLevelManager manager=new ProfileLevelManager();
     ProfileLevelBean bean=new ProfileLevelBean();
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)

@@ -88,8 +88,29 @@ public class ProfileLevelPersistence {
     public int deleteProfile(Connection con, int id1) throws Exception {
         try{
             pst = con.prepareStatement("Delete from PROFILE_LEVELS where LEVEL_NAME = ?");
-            
             pst.setInt(1, id1);
+            x = pst.executeUpdate();
+            
+            return  x;
+        } catch (Exception ex) {
+            throw ex;
+        } finally {
+            try {
+                pst.close();
+            } catch (Exception e) {
+                
+            }
+        } 
+    }
+
+    public int updateProfile(Connection con, ProfileLevelBean bean) throws Exception {
+        try{
+            pst = con.prepareStatement("update PROFILE_LEVELS set LEVEL_FROM = ?,LEVEL_TO= ?  where LEVEL_NAME = ?");
+            
+            pst.setInt(1, bean.getLEVEL_FROM());
+            pst.setInt(2,bean.getLEVEL_TO());
+            pst.setInt(3, bean.getLEVEL_NAME());
+            
             x = pst.executeUpdate();
             
             return  x;
