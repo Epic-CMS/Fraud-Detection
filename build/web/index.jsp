@@ -1,3 +1,4 @@
+<%@page import="Bean.GeoDistanceCheckBean"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="Bean.TransactionDetailBean"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -173,7 +174,52 @@
                             </table>
                         </div><!-- /.table-responsive -->
                     </div>
+                      <br><br>
+                      <div class="bs-example4" data-example-id="contextual-table1">
+                        <!-- /.table-responsive -->
+                        <a href="./Test"><button type="button" class="btn btn_2 btn-md btn-primary">Show Table</button></a> <br><br>
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>PAN</th>
+                                        <th>Date</th>
+                                        <th>Place</th>
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                   
+                                       <%
+                                           if(request.getAttribute("beanList1") != null || request.getAttribute("beanList1")== ""){
+                                           ArrayList<GeoDistanceCheckBean> list = (ArrayList<GeoDistanceCheckBean>) request.getAttribute("beanList1");
+                                           int i = 0;
 
+                                           for (GeoDistanceCheckBean bean : list) { 
+                                                i++;                                        %>
+                                               <tr>
+                                               <td> <% {out.println(i); } %></td>
+                                               <td> <% if(bean.getF2_PAN() != null){out.println(bean.getF2_PAN()); }else{out.println("--"); }%></td>
+                                              
+                                               
+                                               <td> <% if(bean.getF7_TRANSMISSION_DATETIME() != null) {
+                                                        String[] date = bean.getF7_TRANSMISSION_DATETIME();
+                                                        
+                                                        out.println(" Month "+ date[0]+ " Date"+ date[1] + " hours"+ date[2] + " minutes"+ date[3]); 
+                                                    }else{
+                                                        out.println("--"); 
+                                                    } %></td>
+                                               <td> <% if(bean.getF43_CARD_ACCCEPT_NAME() != null){out.println(bean.getF43_CARD_ACCCEPT_NAME()); }else{out.println("--"); }%></td>
+                                               
+                                                </tr> 
+                                        <%   }}
+                                       %>
+                                   
+                                </tbody>
+                            </table>
+                        </div><!-- /.table-responsive -->
+                    </div>
 
 
                 </div>

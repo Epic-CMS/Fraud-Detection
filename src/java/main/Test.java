@@ -5,8 +5,9 @@
  */
 package main;
 
+import Bean.GeoDistanceCheckBean;
 import Bean.TransactionDetailBean;
-import DBConnection.DBConnection;
+import Manager.GeoDistanceCheckManager;
 import Manager.TransactionDetailManager;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -40,11 +41,16 @@ public class Test extends HttpServlet {
         PrintWriter out = response.getWriter();
         response.setContentType("text/html;charset=UTF-8");
         TransactionDetailManager manager = new TransactionDetailManager();
+        GeoDistanceCheckManager manager1 = new GeoDistanceCheckManager();
+        
         List<TransactionDetailBean> beanList = null;
+        List<GeoDistanceCheckBean> beanList1 = null;
        
         beanList = manager.getTransactionList();
+        beanList1 = manager1.getGeoCheckTrans("4024007188976491");
       
         request.setAttribute("beanList", beanList);
+        request.setAttribute("beanList1", beanList1);
        getServletConfig().getServletContext().getRequestDispatcher("/index.jsp").forward(request,response);
         
     }
