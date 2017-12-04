@@ -1,3 +1,4 @@
+<%@page import="java.util.List"%>
 <%@page import="Bean.GeoDistanceCheckBean"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="Bean.TransactionDetailBean"%>
@@ -177,7 +178,7 @@
                       <br><br>
                       <div class="bs-example4" data-example-id="contextual-table1">
                         <!-- /.table-responsive -->
-                        <a href="./Test"><button type="button" class="btn btn_2 btn-md btn-primary">Show Table</button></a> <br><br>
+                        <a href="./GeoDistanceCheckServlet"><button type="button" class="btn btn_2 btn-md btn-primary">Show Table</button></a> <br><br>
                         <div class="table-responsive">
                             <table class="table table-bordered">
                                 <thead>
@@ -193,7 +194,7 @@
                                    
                                        <%
                                            if(request.getAttribute("beanList1") != null || request.getAttribute("beanList1")== ""){
-                                           ArrayList<GeoDistanceCheckBean> list = (ArrayList<GeoDistanceCheckBean>) request.getAttribute("beanList1");
+                                           List<GeoDistanceCheckBean> list = (List<GeoDistanceCheckBean>) request.getAttribute("beanList1");
                                            int i = 0;
 
                                            for (GeoDistanceCheckBean bean : list) { 

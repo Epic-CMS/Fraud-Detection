@@ -8,19 +8,20 @@
 <!DOCTYPE html>
 <html>
     <head>
-      
+
     </head>
     <body>
-        
-          
-            <div>
-                <label id="myField"></label>
-            </div>
-            
-        
-        
+
+
+        <div>
+            <label id="myField"></label>
+        </div>
+
+
+
         <script>
             function initMap() {
+                var id =2;
                 //var bounds = new google.maps.LatLngBounds;
                 var markersArray = [];
 
@@ -53,9 +54,9 @@
                     } else {
                         var originList = response.originAddresses;
                         //var destinationList = response.destinationAddresses;
-                        
+
                         var outputDiv1 = document.getElementById('myField');
-                        
+
                         outputDiv1.innerHTML = '';
                         deleteMarkers(markersArray);
 
@@ -82,15 +83,41 @@
                             for (var j = 0; j < results.length; j++) {
 //                                geocoder.geocode({'address': destinationList[j]},
 //                                showGeocodedAddressOnMap(false));
-                                
-                                 outputDiv1.innerHTML +=
+
+                                outputDiv1.innerHTML +=
                                         results[j].duration.text + '<br>';
-                                
+
+                                var str = results[j].duration.text;
+                                var time = str.split(" ");
+                                for (var i = 0; i < time.length; i++) {
+                                    alert(time[i]);
+                                    if (time[i + 1] == 'days') {
+                                        var days = time[i];
+                                    }
+                                    else if (time[i + 1] == 'hours') {
+                                        var hours = time[i];
+                                        var id= document.getElementById(hours);
+                                    }
+                                    else if (time[i + 1] == 'mins') {
+                                        var mins = time[i];
+                                    }
+                                    i++;
+                                }
+                               
+                                $.ajax({
+                                    url: 'D:\backup\Fraud\Fraud-Detection\src\java\main\GeoDistanceCheckServlet.java',
+                                    data: {
+                                       postVariableName: id
+                                    },
+                                    type: 'POST'
+                                });
                             }
                         }
                     }
                 });
+
             }
+
 
             function deleteMarkers(markersArray) {
                 for (var i = 0; i < markersArray.length; i++) {
