@@ -7,7 +7,11 @@ package main;
 
 import Bean.GeoDistanceCheckBean;
 import Manager.GeoDistanceCheckManager;
+import static com.sun.corba.se.impl.util.Utility.printStackTrace;
 import java.io.IOException;
+import java.io.PrintWriter;
+import static java.lang.System.err;
+import static java.lang.System.out;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -17,6 +21,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 /**
  *
@@ -35,51 +41,67 @@ public class GeoDistanceCheckServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, Exception {
-        response.setContentType("text/html;charset=UTF-8");
-        GeoDistanceCheckManager manager1 = new GeoDistanceCheckManager();
 
-        List<GeoDistanceCheckBean> beanList1 = null;
-
-        beanList1 = manager1.getGeoCheckTrans("4024007188976491");
-
-        String[] d1 = beanList1.get(0).getF7_TRANSMISSION_DATETIME();
-        String[] d2 = beanList1.get(1).getF7_TRANSMISSION_DATETIME();
-        String time1 = d1[0] + d1[1] + d1[2] + d1[3];
-        String time2 = d2[0] + d2[1] + d2[2] + d2[3];
-
-        SimpleDateFormat simpleDateFormat
-                = new SimpleDateFormat("MMddhhmm");
-        Date dateAsString = simpleDateFormat.parse(time1);
-        Date dateAsString2 = simpleDateFormat.parse(time2);
-        long e = dateAsString2.getTime() - dateAsString.getTime();
-        long days, hours, mins;
-        days = e / (1000 * 60 * 60 * 24);
-        if (days > 0) {
-            hours = e / (1000 * 60 * 60) - days * 24;
-            if (hours > 0) {
-                mins = e / (1000 * 60) - hours * 60 - days * 24 * 60;
-            } else {
-                mins = e / (1000 * 60);
+        try (PrintWriter out = response.getWriter()) {
+            response.setContentType("text/html;charset=UTF-8");
+            if (request.getParameter("flag").equals("send")) {
+                String hours1 = request.getParameter("hours");
+                String days1 = request.getParameter("days");
+                String mins1 = request.getParameter("mins");
+                System.err.println("result--------------------" + days1 + hours1 + mins1);
             }
-        } else {
-            hours = e / (1000 * 60 * 60);
-            if (hours > 0) {
-                mins = e / (1000 * 60) - hours * 60 - days * 24 * 60;
+            
+            GeoDistanceCheckManager manager1 = new GeoDistanceCheckManager();
+
+            List<GeoDistanceCheckBean> beanList1 = null;
+
+            beanList1 = manager1.getGeoCheckTrans("4024007188976491");
+
+            String[] d1 = beanList1.get(0).getF7_TRANSMISSION_DATETIME();
+            String[] d2 = beanList1.get(1).getF7_TRANSMISSION_DATETIME();
+            String time1 = d1[0] + d1[1] + d1[2] + d1[3];
+            String time2 = d2[0] + d2[1] + d2[2] + d2[3];
+
+            SimpleDateFormat simpleDateFormat
+                    = new SimpleDateFormat("MMddhhmm");
+            Date dateAsString = simpleDateFormat.parse(time1);
+            Date dateAsString2 = simpleDateFormat.parse(time2);
+            long e = dateAsString2.getTime() - dateAsString.getTime();
+            long days, hours, mins;
+            days = e / (1000 * 60 * 60 * 24);
+            if (days > 0) {
+                hours = e / (1000 * 60 * 60) - days * 24;
+                if (hours > 0) {
+                    mins = e / (1000 * 60) - hours * 60 - days * 24 * 60;
+                } else {
+                    mins = e / (1000 * 60);
+                }
             } else {
-                mins = e / (1000 * 60);
+                hours = e / (1000 * 60 * 60);
+                if (hours > 0) {
+                    mins = e / (1000 * 60) - hours * 60 - days * 24 * 60;
+                } else {
+                    mins = e / (1000 * 60);
+                }
             }
+
+            //String dateA= simpleDateFormat.format(dateAsString);
+            System.out.println("days" + days + "  hours" + hours + "  mins" + mins);
+
+
+//        getServletConfig()
+//                .getServletContext().getRequestDispatcher("/geoLocationCheck.jsp").forward(request, response);
+            //String[] array ={"Diyatha Uyana,Srilanka","Kandy, Srilanka"};
+            if (request.getParameter("flag").equals("receive")) {
+                JSONObject jsono = new JSONObject();
+                response.setContentType("json");
+                jsono.put("origin", "Diyatha Uyana,Srilanka");
+                jsono.put("destination", "Kandy, Srilanka");
+                out.print(jsono);
+            }
+        } catch (Exception eg) {
+            printStackTrace();
         }
-
-        //String dateA= simpleDateFormat.format(dateAsString);
-        System.out.println("days" + days + "  hours" + hours + "  mins" + mins);
-
-        String id = request.getParameter("id");
-        System.out.print("id is:" + id);
-
-        request.setAttribute(
-                "beanList1", beanList1);
-        getServletConfig()
-                .getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
     }
 
     private Integer[] convertTOIntArray(String[] strings) {

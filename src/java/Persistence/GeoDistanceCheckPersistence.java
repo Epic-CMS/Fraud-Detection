@@ -13,6 +13,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 
 /**
  *
@@ -53,6 +56,7 @@ public class GeoDistanceCheckPersistence {
             }
              List<GeoDistanceCheckBean> lastTrans = tranList.subList(tranList.size()-2, tranList.size());
             
+             
             return lastTrans;
             
         } catch (Exception ex) {

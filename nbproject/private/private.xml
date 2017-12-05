@@ -3,8 +3,18 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Files/Projects/Fraud_Detection/Fraud-Detection/web/index.jsp</file>
-            <file>file:/D:/Files/Projects/Fraud_Detection/Fraud-Detection/web/table.jsp</file>
+            <file>file:/D:/backup/Fraud/Fraud-Detection/web/geoLocationCheck.jsp</file>
+            <file>file:/D:/backup/Fraud/Fraud-Detection/src/java/main/Test.java</file>
+            <file>file:/D:/backup/Fraud/Fraud-Detection/src/java/main/GeoDistanceCheckServlet.java</file>
+            <file>file:/D:/backup/Fraud/Fraud-Detection/web/table.jsp</file>
+            <file>file:/D:/backup/Fraud/Fraud-Detection/web/index.jsp</file>
+            <file>file:/D:/backup/Fraud/Fraud-Detection/src/java/Manager/GeoDistanceCheckManager.java</file>
+            <file>file:/D:/backup/Fraud/Fraud-Detection/src/java/Persistence/TransactionDetailPersistence.java</file>
+            <file>file:/D:/backup/Fraud/Fraud-Detection/web/amount.jsp</file>
+            <file>file:/D:/backup/Fraud/Fraud-Detection/src/java/Manager/TransactionDetailManager.java</file>
+            <file>file:/D:/backup/Fraud/Fraud-Detection/src/java/Bean/GeoDistanceCheckBean.java</file>
+            <file>file:/D:/backup/Fraud/Fraud-Detection/src/java/main/ViewProfile.java</file>
+            <file>file:/D:/backup/Fraud/Fraud-Detection/src/java/Persistence/GeoDistanceCheckPersistence.java</file>
         </group>
     </open-files>
 </project-private>

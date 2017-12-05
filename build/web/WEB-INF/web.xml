@@ -20,6 +20,10 @@
         <servlet-name>UpdateProfile</servlet-name>
         <servlet-class>main.UpdateProfile</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>GeoDistanceCheckServlet</servlet-name>
+        <servlet-class>main.GeoDistanceCheckServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Test</servlet-name>
         <url-pattern>/Test</url-pattern>
@@ -39,6 +43,10 @@
     <servlet-mapping>
         <servlet-name>UpdateProfile</servlet-name>
         <url-pattern>/UpdateProfile</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GeoDistanceCheckServlet</servlet-name>
+        <url-pattern>/GeoDistanceCheckServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -85,11 +85,11 @@
                                 <a href="#"><i class="fa fa-check-square-o nav_icon"></i>Rules<span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
                                     <li>
-                                        <a href="grids.html">Card Number</a>
-                                        <a href="grids.html">Customer</a>
-                                        <a href="grids.html">Geographic</a>
-                                        <a href="amount.html">Amount</a>
-                                        <a href="grids.html">Product Details</a>
+                                        <a href="#">Card Number</a>
+                                        <a href="#">Customer</a>
+                                        <a href="geoLocationCheck.jsp">Geographic</a>
+                                        <a href="ViewProfile">Amount</a>
+                                        <a href="#">Product Details</a>
                                     </li>
                                 </ul>
                                 <!-- /.nav-second-level -->
@@ -111,10 +111,11 @@
                 <div class="graphs">
                     <a href="add_profile_levels.jsp"><button type="button" class="btn btn_5 btn-lg btn-primary">Add Profile Levels</button></a>
                     <br><br>
-
+                    
                     <div class="bs-example4" data-example-id="contextual-table">
                         <!-- /.table-responsive -->
-                        
+                        <div><b>Current Profile Levels</b></div> 
+                       <br><br>
                         <div class="table-responsive">
                             <table class="table table-bordered" id="myTable">
                                 <thead>
