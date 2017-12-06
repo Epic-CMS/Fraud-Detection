@@ -44,12 +44,18 @@ public class GeoDistanceCheckServlet extends HttpServlet {
 
         try (PrintWriter out = response.getWriter()) {
             response.setContentType("text/html;charset=UTF-8");
+            
             if (request.getParameter("flag").equals("send")) {
+                
                 String hours1 = request.getParameter("hours");
                 String days1 = request.getParameter("days");
                 String mins1 = request.getParameter("mins");
-                System.err.println("result--------------------" + days1 + hours1 + mins1);
-            }
+                String numberAsString = days1+hours1+mins1;
+                
+                long realdifference = Long.parseLong(numberAsString);
+                System.out.print("Real Difference---------- ");
+                System.out.println(realdifference);
+            
             
             GeoDistanceCheckManager manager1 = new GeoDistanceCheckManager();
 
@@ -84,20 +90,38 @@ public class GeoDistanceCheckServlet extends HttpServlet {
                     mins = e / (1000 * 60);
                 }
             }
-
-            //String dateA= simpleDateFormat.format(dateAsString);
-            System.out.println("days" + days + "  hours" + hours + "  mins" + mins);
-
+            //String numasstring = days+hours+mins;
+            String dayslong = Long.toString(days);
+            String hourslong = Long.toString(hours);
+            String minslong = Long.toString(mins);
+            String trandiffString = (dayslong+hourslong+minslong);
+            
+            System.out.print("Transaction Difference---------- ");
+            long trandifference = Long.parseLong(trandiffString);
+            //long trandifference = trandiffString;
+            System.out.println(trandifference);
+            
+            long realVsTranDiff = trandifference - realdifference;
+            if(realVsTranDiff >= 30){
+                request.getSession().setAttribute("Status", "Not a Fraud");
+                System.out.print("Not a Fraud");
+            }else{
+                request.getSession().setAttribute("Status", "Fraudulent Transaction Detected !");
+                System.out.print("Fraudulent Transaction Detected !");
+            }
+        }  
 
 //        getServletConfig()
 //                .getServletContext().getRequestDispatcher("/geoLocationCheck.jsp").forward(request, response);
-            //String[] array ={"Diyatha Uyana,Srilanka","Kandy, Srilanka"};
+            
             if (request.getParameter("flag").equals("receive")) {
+                
                 JSONObject jsono = new JSONObject();
                 response.setContentType("json");
                 jsono.put("origin", "Diyatha Uyana,Srilanka");
                 jsono.put("destination", "Kandy, Srilanka");
                 out.print(jsono);
+                
             }
         } catch (Exception eg) {
             printStackTrace();

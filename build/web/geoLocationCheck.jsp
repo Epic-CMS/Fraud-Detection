@@ -114,6 +114,7 @@
                     <br><br>
                     <div class="bs-example4" data-example-id="contextual-table1">
                         <div id="myField"></div>
+                        <div><% String Status = (String)session.getAttribute("Status"); %><%= Status %> </div>
                         <!-- /.table-responsive -->
                         <a href="./GeoDistanceCheckServlet"><button type="button" class="btn btn_2 btn-md btn-primary">Show Table</button></a> <br><br>
                         <div class="table-responsive">

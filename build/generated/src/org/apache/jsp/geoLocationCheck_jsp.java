@@ -161,6 +161,10 @@ public final class geoLocationCheck_jsp extends org.apache.jasper.runtime.HttpJs
       out.write("                    <br><br>\n");
       out.write("                    <div class=\"bs-example4\" data-example-id=\"contextual-table1\">\n");
       out.write("                        <div id=\"myField\"></div>\n");
+      out.write("                        <div>");
+ String Status = (String)session.getAttribute("Status"); 
+      out.print( Status );
+      out.write(" </div>\n");
       out.write("                        <!-- /.table-responsive -->\n");
       out.write("                        <a href=\"./GeoDistanceCheckServlet\"><button type=\"button\" class=\"btn btn_2 btn-md btn-primary\">Show Table</button></a> <br><br>\n");
       out.write("                        <div class=\"table-responsive\">\n");
@@ -254,7 +258,7 @@ public final class geoLocationCheck_jsp extends org.apache.jasper.runtime.HttpJs
       out.write("                                    var origin = JSON.stringify(data.origin);\n");
       out.write("                                    var destination = JSON.stringify(data.destination);\n");
       out.write("\n");
-      out.write("                                    alert(origin);\n");
+      out.write("                                    \n");
       out.write("                                    var service = new google.maps.DistanceMatrixService;\n");
       out.write("                                    service.getDistanceMatrix({\n");
       out.write("                                        origins: [origin],\n");
