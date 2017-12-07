@@ -106,17 +106,29 @@
             <div id="page-wrapper">
                 <ul class="breadcrumb">
                     <li><a href="index.jsp">Dashboard</a></li>
+                    <li><a href="geoLocationCheck.jsp">Geographic</a></li>
                 </ul>
                 <div class="graphs">
-                    <a href="create_newrule.jsp"><button type="button" class="btn btn_5 btn-lg btn-primary">Create New Rule</button></a>
+                    <a href="create_newrule.jsp"><button type="button" class="btn btn_5 btn-lg btn-primary">Create New Rule</button></a> 
                     <br><br>
 
                     <br><br>
                     <div class="bs-example4" data-example-id="contextual-table1">
-                        <div id="myField"></div>
-                        <div><% String Status = (String)session.getAttribute("Status"); %><%= Status %> </div>
+                        <div id="myField" style="display: none;"></div> 
+                        <div><% String Status = (String) session.getAttribute("Status");
+                            String PAN = (String) session.getAttribute("PAN");
+                            String F43_CARD_ACCCEPT_NAME0 = (String)session.getAttribute("F43_CARD_ACCCEPT_NAME0");
+                            String F43_CARD_ACCCEPT_NAME1 = (String)session.getAttribute("F43_CARD_ACCCEPT_NAME1");
+                            String date1 = (String) session.getAttribute("date1");
+                            String date2 = (String) session.getAttribute("date2");
+                            %>
+                            <div>Last transaction of PAN "<%= PAN%>" is  <b><%= Status%></b></div>
+                            
+                                <br><br>
+                            </div>
+                        </div>
                         <!-- /.table-responsive -->
-                        <a href="./GeoDistanceCheckServlet"><button type="button" class="btn btn_2 btn-md btn-primary">Show Table</button></a> <br><br>
+                        <!--<a href="./GeoDistanceCheckServlet"><button type="button" class="btn btn_2 btn-md btn-primary">Show Table</button></a> <br><br> !-->
                         <div class="table-responsive">
                             <table class="table table-bordered">
                                 <thead>
@@ -130,41 +142,11 @@
                                 </thead>
                                 <tbody>
 
-                                    <%
-                                        if (request.getAttribute("beanList1") != null || request.getAttribute("beanList1") == "") {
-                                            List<GeoDistanceCheckBean> list = (List<GeoDistanceCheckBean>) request.getAttribute("beanList1");
-                                            int i = 0;
+                                    <tr><td>1</td><td><%= PAN%></td><td><%= date1%></td><td><%= F43_CARD_ACCCEPT_NAME0%></td>
+                                    </tr>
 
-                                            for (GeoDistanceCheckBean bean : list) {
-                                                i++;                                        %>
-                                    <tr>
-                                        <td> <% {
-                                                out.println(i);
-                                            } %></td>
-                                        <td> <% if (bean.getF2_PAN() != null) {
-                                                out.println(bean.getF2_PAN());
-                                            } else {
-                                                out.println("--");
-                                            }%></td>
-
-
-                                        <td> <% if (bean.getF7_TRANSMISSION_DATETIME() != null) {
-                                                String[] date = bean.getF7_TRANSMISSION_DATETIME();
-
-                                                out.println(" Month " + date[0] + " Date" + date[1] + " hours" + date[2] + " minutes" + date[3]);
-                                            } else {
-                                                out.println("--");
-                                            } %></td>
-                                        <td> <% if (bean.getF43_CARD_ACCCEPT_NAME() != null) {
-                                                out.println(bean.getF43_CARD_ACCCEPT_NAME());
-                                            } else {
-                                                out.println("--");
-                                            }%></td>
-
-                                    </tr> 
-                                    <%   }
-                                        }
-                                    %>
+                                    <tr><td>2</td><td><%= PAN%></td><td><%= date2%></td><td><%= F43_CARD_ACCCEPT_NAME1%></td>
+                                    </tr>
 
                                 </tbody>
                             </table>
@@ -179,6 +161,7 @@
         <!-- /#wrapper -->
         <!-- Bootstrap Core JavaScript -->
         <script src="js/bootstrap.min.js"></script>
+
 
 
         <script>
@@ -196,7 +179,7 @@
                                     var origin = JSON.stringify(data.origin);
                                     var destination = JSON.stringify(data.destination);
 
-                                    
+
                                     var service = new google.maps.DistanceMatrixService;
                                     service.getDistanceMatrix({
                                         origins: [origin],
@@ -277,10 +260,25 @@
 
                                 }
                             });
-
-
-
                         }
+                        function tablefill() {
+
+                            alert("Hello!");
+                            $.ajax({
+                                url: "GeoDistanceCheckServlet?flag=tablefill",
+                                type: "POST",
+                                data: {
+                                },
+                                success: function(data) {
+                                    var F2_PAN0 = JSON.stringify(data.F2_PAN0);
+                                    document.getElementById('1').innerHTML = F2_PAN0;
+                                    //var destination = JSON.stringify(data.destination);
+
+                                }
+                            });
+                        }
+
+
                         function deleteMarkers(markersArray) {
                             for (var i = 0; i < markersArray.length; i++) {
                                 markersArray[i].setMap(null);

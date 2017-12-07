@@ -153,20 +153,35 @@ public final class geoLocationCheck_jsp extends org.apache.jasper.runtime.HttpJs
       out.write("            <div id=\"page-wrapper\">\n");
       out.write("                <ul class=\"breadcrumb\">\n");
       out.write("                    <li><a href=\"index.jsp\">Dashboard</a></li>\n");
+      out.write("                    <li><a href=\"geoLocationCheck.jsp\">Geographic</a></li>\n");
       out.write("                </ul>\n");
       out.write("                <div class=\"graphs\">\n");
-      out.write("                    <a href=\"create_newrule.jsp\"><button type=\"button\" class=\"btn btn_5 btn-lg btn-primary\">Create New Rule</button></a>\n");
+      out.write("                    <a href=\"create_newrule.jsp\"><button type=\"button\" class=\"btn btn_5 btn-lg btn-primary\">Create New Rule</button></a> \n");
       out.write("                    <br><br>\n");
       out.write("\n");
       out.write("                    <br><br>\n");
       out.write("                    <div class=\"bs-example4\" data-example-id=\"contextual-table1\">\n");
-      out.write("                        <div id=\"myField\"></div>\n");
+      out.write("                        <div id=\"myField\" style=\"display: none;\"></div> \n");
       out.write("                        <div>");
- String Status = (String)session.getAttribute("Status"); 
-      out.print( Status );
-      out.write(" </div>\n");
+ String Status = (String) session.getAttribute("Status");
+                            String PAN = (String) session.getAttribute("PAN");
+                            String F43_CARD_ACCCEPT_NAME0 = (String)session.getAttribute("F43_CARD_ACCCEPT_NAME0");
+                            String F43_CARD_ACCCEPT_NAME1 = (String)session.getAttribute("F43_CARD_ACCCEPT_NAME1");
+                            String date1 = (String) session.getAttribute("date1");
+                            String date2 = (String) session.getAttribute("date2");
+                            
+      out.write("\n");
+      out.write("                            <div>Last transaction of PAN \"");
+      out.print( PAN);
+      out.write("\" is  <b>");
+      out.print( Status);
+      out.write("</b></div>\n");
+      out.write("                            \n");
+      out.write("                                <br><br>\n");
+      out.write("                            </div>\n");
+      out.write("                        </div>\n");
       out.write("                        <!-- /.table-responsive -->\n");
-      out.write("                        <a href=\"./GeoDistanceCheckServlet\"><button type=\"button\" class=\"btn btn_2 btn-md btn-primary\">Show Table</button></a> <br><br>\n");
+      out.write("                        <!--<a href=\"./GeoDistanceCheckServlet\"><button type=\"button\" class=\"btn btn_2 btn-md btn-primary\">Show Table</button></a> <br><br> !-->\n");
       out.write("                        <div class=\"table-responsive\">\n");
       out.write("                            <table class=\"table table-bordered\">\n");
       out.write("                                <thead>\n");
@@ -180,53 +195,23 @@ public final class geoLocationCheck_jsp extends org.apache.jasper.runtime.HttpJs
       out.write("                                </thead>\n");
       out.write("                                <tbody>\n");
       out.write("\n");
-      out.write("                                    ");
-
-                                        if (request.getAttribute("beanList1") != null || request.getAttribute("beanList1") == "") {
-                                            List<GeoDistanceCheckBean> list = (List<GeoDistanceCheckBean>) request.getAttribute("beanList1");
-                                            int i = 0;
-
-                                            for (GeoDistanceCheckBean bean : list) {
-                                                i++;                                        
-      out.write("\n");
-      out.write("                                    <tr>\n");
-      out.write("                                        <td> ");
- {
-                                                out.println(i);
-                                            } 
+      out.write("                                    <tr><td>1</td><td>");
+      out.print( PAN);
+      out.write("</td><td>");
+      out.print( date1);
+      out.write("</td><td>");
+      out.print( F43_CARD_ACCCEPT_NAME0);
       out.write("</td>\n");
-      out.write("                                        <td> ");
- if (bean.getF2_PAN() != null) {
-                                                out.println(bean.getF2_PAN());
-                                            } else {
-                                                out.println("--");
-                                            }
+      out.write("                                    </tr>\n");
+      out.write("\n");
+      out.write("                                    <tr><td>2</td><td>");
+      out.print( PAN);
+      out.write("</td><td>");
+      out.print( date2);
+      out.write("</td><td>");
+      out.print( F43_CARD_ACCCEPT_NAME1);
       out.write("</td>\n");
-      out.write("\n");
-      out.write("\n");
-      out.write("                                        <td> ");
- if (bean.getF7_TRANSMISSION_DATETIME() != null) {
-                                                String[] date = bean.getF7_TRANSMISSION_DATETIME();
-
-                                                out.println(" Month " + date[0] + " Date" + date[1] + " hours" + date[2] + " minutes" + date[3]);
-                                            } else {
-                                                out.println("--");
-                                            } 
-      out.write("</td>\n");
-      out.write("                                        <td> ");
- if (bean.getF43_CARD_ACCCEPT_NAME() != null) {
-                                                out.println(bean.getF43_CARD_ACCCEPT_NAME());
-                                            } else {
-                                                out.println("--");
-                                            }
-      out.write("</td>\n");
-      out.write("\n");
-      out.write("                                    </tr> \n");
-      out.write("                                    ");
-   }
-                                        }
-                                    
-      out.write("\n");
+      out.write("                                    </tr>\n");
       out.write("\n");
       out.write("                                </tbody>\n");
       out.write("                            </table>\n");
@@ -241,6 +226,7 @@ public final class geoLocationCheck_jsp extends org.apache.jasper.runtime.HttpJs
       out.write("        <!-- /#wrapper -->\n");
       out.write("        <!-- Bootstrap Core JavaScript -->\n");
       out.write("        <script src=\"js/bootstrap.min.js\"></script>\n");
+      out.write("\n");
       out.write("\n");
       out.write("\n");
       out.write("        <script>\n");
@@ -258,7 +244,7 @@ public final class geoLocationCheck_jsp extends org.apache.jasper.runtime.HttpJs
       out.write("                                    var origin = JSON.stringify(data.origin);\n");
       out.write("                                    var destination = JSON.stringify(data.destination);\n");
       out.write("\n");
-      out.write("                                    \n");
+      out.write("\n");
       out.write("                                    var service = new google.maps.DistanceMatrixService;\n");
       out.write("                                    service.getDistanceMatrix({\n");
       out.write("                                        origins: [origin],\n");
@@ -339,10 +325,25 @@ public final class geoLocationCheck_jsp extends org.apache.jasper.runtime.HttpJs
       out.write("\n");
       out.write("                                }\n");
       out.write("                            });\n");
-      out.write("\n");
-      out.write("\n");
-      out.write("\n");
       out.write("                        }\n");
+      out.write("                        function tablefill() {\n");
+      out.write("\n");
+      out.write("                            alert(\"Hello!\");\n");
+      out.write("                            $.ajax({\n");
+      out.write("                                url: \"GeoDistanceCheckServlet?flag=tablefill\",\n");
+      out.write("                                type: \"POST\",\n");
+      out.write("                                data: {\n");
+      out.write("                                },\n");
+      out.write("                                success: function(data) {\n");
+      out.write("                                    var F2_PAN0 = JSON.stringify(data.F2_PAN0);\n");
+      out.write("                                    document.getElementById('1').innerHTML = F2_PAN0;\n");
+      out.write("                                    //var destination = JSON.stringify(data.destination);\n");
+      out.write("\n");
+      out.write("                                }\n");
+      out.write("                            });\n");
+      out.write("                        }\n");
+      out.write("\n");
+      out.write("\n");
       out.write("                        function deleteMarkers(markersArray) {\n");
       out.write("                            for (var i = 0; i < markersArray.length; i++) {\n");
       out.write("                                markersArray[i].setMap(null);\n");

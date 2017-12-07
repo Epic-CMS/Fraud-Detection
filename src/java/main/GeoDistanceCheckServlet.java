@@ -17,6 +17,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -42,100 +43,121 @@ public class GeoDistanceCheckServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, Exception {
 
+        GeoDistanceCheckManager manager1 = new GeoDistanceCheckManager();
+        List<GeoDistanceCheckBean> beanList1 = null;
+        beanList1 = manager1.getGeoCheckTrans("4024007188976491");
+        request.getSession().setAttribute("PAN", beanList1.get(0).getF2_PAN());
+        for (int i = 0; i < 2; i++) {
+            request.getSession().setAttribute("F2_PAN" + i, beanList1.get(i).getF2_PAN());
+            request.getSession().setAttribute("F7_TRANSMISSION_DATETIME" + i, beanList1.get(i).getF7_TRANSMISSION_DATETIME());
+            request.getSession().setAttribute("F43_CARD_ACCCEPT_NAME" + i, beanList1.get(i).getF43_CARD_ACCCEPT_NAME());
+
+        }
+
         try (PrintWriter out = response.getWriter()) {
             response.setContentType("text/html;charset=UTF-8");
-            
+
             if (request.getParameter("flag").equals("send")) {
-                
+
                 String hours1 = request.getParameter("hours");
                 String days1 = request.getParameter("days");
                 String mins1 = request.getParameter("mins");
-                String numberAsString = days1+hours1+mins1;
-                
+                String numberAsString = days1 + hours1 + mins1;
+
                 long realdifference = Long.parseLong(numberAsString);
                 System.out.print("Real Difference---------- ");
                 System.out.println(realdifference);
-            
-            
-            GeoDistanceCheckManager manager1 = new GeoDistanceCheckManager();
 
-            List<GeoDistanceCheckBean> beanList1 = null;
-
-            beanList1 = manager1.getGeoCheckTrans("4024007188976491");
-
-            String[] d1 = beanList1.get(0).getF7_TRANSMISSION_DATETIME();
-            String[] d2 = beanList1.get(1).getF7_TRANSMISSION_DATETIME();
-            String time1 = d1[0] + d1[1] + d1[2] + d1[3];
-            String time2 = d2[0] + d2[1] + d2[2] + d2[3];
-
-            SimpleDateFormat simpleDateFormat
-                    = new SimpleDateFormat("MMddhhmm");
-            Date dateAsString = simpleDateFormat.parse(time1);
-            Date dateAsString2 = simpleDateFormat.parse(time2);
-            long e = dateAsString2.getTime() - dateAsString.getTime();
-            long days, hours, mins;
-            days = e / (1000 * 60 * 60 * 24);
-            if (days > 0) {
-                hours = e / (1000 * 60 * 60) - days * 24;
-                if (hours > 0) {
-                    mins = e / (1000 * 60) - hours * 60 - days * 24 * 60;
-                } else {
-                    mins = e / (1000 * 60);
-                }
-            } else {
-                hours = e / (1000 * 60 * 60);
-                if (hours > 0) {
-                    mins = e / (1000 * 60) - hours * 60 - days * 24 * 60;
-                } else {
-                    mins = e / (1000 * 60);
-                }
-            }
-            //String numasstring = days+hours+mins;
-            String dayslong = Long.toString(days);
-            String hourslong = Long.toString(hours);
-            String minslong = Long.toString(mins);
-            String trandiffString = (dayslong+hourslong+minslong);
-            
-            System.out.print("Transaction Difference---------- ");
-            long trandifference = Long.parseLong(trandiffString);
-            //long trandifference = trandiffString;
-            System.out.println(trandifference);
-            
-            long realVsTranDiff = trandifference - realdifference;
-            if(realVsTranDiff >= 30){
-                request.getSession().setAttribute("Status", "Not a Fraud");
-                System.out.print("Not a Fraud");
-            }else{
-                request.getSession().setAttribute("Status", "Fraudulent Transaction Detected !");
-                System.out.print("Fraudulent Transaction Detected !");
-            }
-        }  
-
-//        getServletConfig()
-//                .getServletContext().getRequestDispatcher("/geoLocationCheck.jsp").forward(request, response);
-            
-            if (request.getParameter("flag").equals("receive")) {
+                String[] d1 = beanList1.get(0).getF7_TRANSMISSION_DATETIME();
+                String[] d2 = beanList1.get(1).getF7_TRANSMISSION_DATETIME();
+                String time1 = d1[0] + d1[1] + d1[2] + d1[3];
+                request.getSession().setAttribute("date1", "month"+d1[0]+" date"+d1[1]+" hour"+d1[2]+" mins"+d1[3]);
+                String time2 = d2[0] + d2[1] + d2[2] + d2[3];
+                request.getSession().setAttribute("date2", "month"+d2[0]+" date"+d2[1]+" hour"+d2[2]+" mins"+d2[3]);
                 
+                SimpleDateFormat simpleDateFormat
+                        = new SimpleDateFormat("MMddhhmm");
+                Date dateAsString = simpleDateFormat.parse(time1);
+                Date dateAsString2 = simpleDateFormat.parse(time2);
+
+                if (dateAsString2.getTime() >= dateAsString.getTime()) {
+                    long e = dateAsString2.getTime() - dateAsString.getTime();
+
+                    long days, hours, mins;
+                    days = e / (1000 * 60 * 60 * 24);
+                    if (days > 0) {
+                        hours = e / (1000 * 60 * 60) - days * 24;
+                        if (hours > 0) {
+                            mins = e / (1000 * 60) - hours * 60 - days * 24 * 60;
+                        } else {
+                            mins = e / (1000 * 60);
+                        }
+                    } else {
+                        hours = e / (1000 * 60 * 60);
+                        if (hours > 0) {
+                            mins = e / (1000 * 60) - hours * 60 - days * 24 * 60;
+                        } else {
+                            mins = e / (1000 * 60);
+                        }
+                    }
+
+                    String dayslong = Long.toString(days);
+                    String hourslong = Long.toString(hours);
+                    String minslong = Long.toString(mins);
+                    String trandiffString = (dayslong + hourslong + minslong);
+
+                    System.out.print("Transaction Difference---------- ");
+                    long trandifference = Long.parseLong(trandiffString);
+                    //long trandifference = trandiffString;
+                    System.out.println(trandifference);
+
+                    long realVsTranDiff = trandifference - realdifference;
+                    if (realVsTranDiff <= 30) {
+                        request.getSession().setAttribute("Status", "Not a Fraudulent Transaction");
+                        System.out.print("Not a Fraudulent Transaction");
+                    } else {
+                        request.getSession().setAttribute("Status", "Fraudulent Transaction Detected !");
+                        System.out.print("Fraudulent Transaction Detected !");
+                    }
+                } else {
+                    request.getSession().setAttribute("Status", "Transaction error !");
+                }
+
+            } else if (request.getParameter("flag").equals("receive")) {
+
+                String locationA = beanList1.get(0).getF43_CARD_ACCCEPT_NAME();
+                String locationB = beanList1.get(1).getF43_CARD_ACCCEPT_NAME();
+                String[] locationArrayA = locationA.split("\\s+");
+                String[] locationArrayB = locationB.split("\\s+");
+
+                System.out.print("s" + locationArrayA[1] + "e");
+
                 JSONObject jsono = new JSONObject();
                 response.setContentType("json");
-                jsono.put("origin", "Diyatha Uyana,Srilanka");
-                jsono.put("destination", "Kandy, Srilanka");
+                jsono.put("origin", locationArrayA[1] + ",Srilanka");
+                jsono.put("destination", locationArrayB[1] + ", Srilanka");
+
                 out.print(jsono);
-                
+                //getServletContext().getRequestDispatcher("/geoLocationCheck.jsp").forward(request, response);
             }
+//            if (request.getParameter("flag").equals("tablefill")) {
+//                //getServletContext().getRequestDispatcher("/geoLocationCheck.jsp").forward(request, response);
+//                JSONObject jsont = new JSONObject();
+//                response.setContentType("json");
+//                for (int i = 0; i < 2; i++) {
+//                    jsont.put("F2_PAN" + i, beanList1.get(i).getF2_PAN());
+//                    jsont.put("F7_TRANSMISSION_DATETIME" + i, beanList1.get(i).getF7_TRANSMISSION_DATETIME());
+//                    jsont.put("F43_CARD_ACCCEPT_NAME" + i, beanList1.get(i).getF43_CARD_ACCCEPT_NAME());
+//
+//                    out.print(jsont);
+//                }
+//            }
+
         } catch (Exception eg) {
             printStackTrace();
         }
-    }
 
-    private Integer[] convertTOIntArray(String[] strings) {
-        Integer[] intarray = new Integer[strings.length];
-        int i = 0;
-        for (String str : strings) {
-            intarray[i] = Integer.parseInt(str.trim());//Exception in this line
-            i++;
-        }
-        return intarray;
+        //getServletConfig().getServletContext().getRequestDispatcher("/geoLocationCheck.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
