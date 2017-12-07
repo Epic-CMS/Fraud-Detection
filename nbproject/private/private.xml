@@ -10,10 +10,10 @@
             <file>file:/D:/backup/Fraud/Fraud-Detection/web/index.jsp</file>
             <file>file:/D:/backup/Fraud/Fraud-Detection/src/java/Manager/GeoDistanceCheckManager.java</file>
             <file>file:/D:/backup/Fraud/Fraud-Detection/src/java/Persistence/TransactionDetailPersistence.java</file>
-            <file>file:/D:/backup/Fraud/Fraud-Detection/web/amount.jsp</file>
+            <file>file:/D:/backup/Fraud/Fraud-Detection/src/java/DBConnection/DBChangeNotification.java</file>
+            <file>file:/D:/backup/Fraud/Fraud-Detection/src/java/DBConnection/DB.java</file>
             <file>file:/D:/backup/Fraud/Fraud-Detection/src/java/Manager/TransactionDetailManager.java</file>
             <file>file:/D:/backup/Fraud/Fraud-Detection/src/java/Bean/GeoDistanceCheckBean.java</file>
-            <file>file:/D:/backup/Fraud/Fraud-Detection/src/java/main/ViewProfile.java</file>
             <file>file:/D:/backup/Fraud/Fraud-Detection/src/java/Persistence/GeoDistanceCheckPersistence.java</file>
         </group>
     </open-files>

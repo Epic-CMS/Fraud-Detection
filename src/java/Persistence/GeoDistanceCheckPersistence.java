@@ -34,7 +34,7 @@ public class GeoDistanceCheckPersistence {
 
         try {
 
-            ps = con.prepareStatement("Select * from TBLISO where F2_PAN = ?");
+            ps = con.prepareStatement("Select * from TBLISO where F2_PAN = ? ORDER BY F7_TRANSMISSION_DATETIME ASC");
             ps.setString(1, PAN);
             rs = ps.executeQuery();
             

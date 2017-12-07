@@ -117,141 +117,59 @@
                         <div id="myField" style="display: none;"></div> 
                         <div><% String Status = (String) session.getAttribute("Status");
                             String PAN = (String) session.getAttribute("PAN");
-                            String F43_CARD_ACCCEPT_NAME0 = (String)session.getAttribute("F43_CARD_ACCCEPT_NAME0");
-                            String F43_CARD_ACCCEPT_NAME1 = (String)session.getAttribute("F43_CARD_ACCCEPT_NAME1");
+                            String F43_CARD_ACCCEPT_NAME0 = (String) session.getAttribute("F43_CARD_ACCCEPT_NAME0");
+                            String F43_CARD_ACCCEPT_NAME1 = (String) session.getAttribute("F43_CARD_ACCCEPT_NAME1");
                             String date1 = (String) session.getAttribute("date1");
                             String date2 = (String) session.getAttribute("date2");
                             %>
                             <div>Last transaction of PAN "<%= PAN%>" is  <b><%= Status%></b></div>
-                            
-                                <br><br>
-                            </div>
+
+                            <br><br>
                         </div>
-                        <!-- /.table-responsive -->
-                        <!--<a href="./GeoDistanceCheckServlet"><button type="button" class="btn btn_2 btn-md btn-primary">Show Table</button></a> <br><br> !-->
-                        <div class="table-responsive">
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>PAN</th>
-                                        <th>Date</th>
-                                        <th>Place</th>
-
-                                    </tr>
-                                </thead>
-                                <tbody>
-
-                                    <tr><td>1</td><td><%= PAN%></td><td><%= date1%></td><td><%= F43_CARD_ACCCEPT_NAME0%></td>
-                                    </tr>
-
-                                    <tr><td>2</td><td><%= PAN%></td><td><%= date2%></td><td><%= F43_CARD_ACCCEPT_NAME1%></td>
-                                    </tr>
-
-                                </tbody>
-                            </table>
-                        </div><!-- /.table-responsive -->
                     </div>
+                    <!-- /.table-responsive -->
+                    <!--<a href="./GeoDistanceCheckServlet"><button type="button" class="btn btn_2 btn-md btn-primary">Show Table</button></a> <br><br> !-->
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>PAN</th>
+                                    <th>Date</th>
+                                    <th>Place</th>
 
+                                </tr>
+                            </thead>
+                            <tbody>
 
+                                <tr><td>1</td><td><%= PAN%></td><td><%= date1%></td><td><%= F43_CARD_ACCCEPT_NAME0%></td>
+                                </tr>
+
+                                <tr><td>2</td><td><%= PAN%></td><td><%= date2%></td><td><%= F43_CARD_ACCCEPT_NAME1%></td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div><!-- /.table-responsive -->
                 </div>
+
+
             </div>
-            <!-- /#page-wrapper -->
         </div>
-        <!-- /#wrapper -->
-        <!-- Bootstrap Core JavaScript -->
-        <script src="js/bootstrap.min.js"></script>
+        <!-- /#page-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+    <script>
+                        window.onload = loaddata;
 
-
-
-        <script>
-                        function initMap() {
-
-                            var markersArray = [];
-
+                        function loaddata() {
                             $.ajax({
-                                url: "GeoDistanceCheckServlet?flag=receive",
-                                type: "POST",
-                                data: {},
-                                success: function(data) {
-
-
-                                    var origin = JSON.stringify(data.origin);
-                                    var destination = JSON.stringify(data.destination);
-
-
-                                    var service = new google.maps.DistanceMatrixService;
-                                    service.getDistanceMatrix({
-                                        origins: [origin],
-                                        destinations: [destination],
-                                        travelMode: 'DRIVING',
-                                        unitSystem: google.maps.UnitSystem.METRIC,
-                                        avoidHighways: false,
-                                        avoidTolls: false
-                                    }, function(response, status) {
-                                        if (status !== 'OK') {
-                                            alert('Error was: ' + status);
-                                        } else {
-                                            var originList = response.originAddresses;
-                                            //var destinationList = response.destinationAddresses;
-
-                                            var outputDiv1 = document.getElementById('myField');
-
-                                            outputDiv1.innerHTML = '';
-                                            deleteMarkers(markersArray);
-
-
-                                            for (var i = 0; i < originList.length; i++) {
-                                                var results = response.rows[i].elements;
-
-                                                for (var j = 0; j < results.length; j++) {
-
-
-                                                    outputDiv1.innerHTML +=
-                                                            results[j].duration.text + '<br>';
-
-                                                    var str = results[j].duration.text;
-                                                    var time = str.split(" ");
-                                                    var days = null;
-                                                    var hours = null;
-                                                    var mins = null;
-                                                    for (var i = 0; i < time.length; i++) {
-                                                        //alert(time[i]);
-                                                        if (time[i + 1] == 'days') {
-                                                            days = time[i];
-
-                                                        }
-                                                        else if (time[i + 1] == 'hours') {
-                                                            hours = time[i];
-
-                                                        }
-                                                        else if (time[i + 1] == 'mins') {
-                                                            mins = time[i];
-                                                        }
-                                                        i++;
-
-                                                    }
-                                                    ajaxcall(days, hours, mins);
-                                                }
-                                            }
-                                        }
-                                    });
-
-                                }
-                            });
-
-
-
-                        }
-
-                        function ajaxcall(days, hours, mins) {
-
-                            //alert(hours);
-                            $.ajax({
-                                url: "GeoDistanceCheckServlet?flag=send",
+                                url: "GeoDistanceCheckServlet?flag=loaddata",
                                 type: "POST",
                                 data: {
-                                    hours: hours, days: days, mins: mins
+                                   
                                 },
                                 success: function(data) {
                                     //alert("success");
@@ -261,34 +179,119 @@
                                 }
                             });
                         }
-                        function tablefill() {
+    </script>
 
-                            alert("Hello!");
-                            $.ajax({
-                                url: "GeoDistanceCheckServlet?flag=tablefill",
-                                type: "POST",
-                                data: {
-                                },
-                                success: function(data) {
-                                    var F2_PAN0 = JSON.stringify(data.F2_PAN0);
-                                    document.getElementById('1').innerHTML = F2_PAN0;
-                                    //var destination = JSON.stringify(data.destination);
 
+    <script>
+        function initMap() {
+
+            var markersArray = [];
+
+            $.ajax({
+                url: "GeoDistanceCheckServlet?flag=receive",
+                type: "POST",
+                data: {},
+                success: function(data) {
+
+
+                    var origin = JSON.stringify(data.origin);
+                    var destination = JSON.stringify(data.destination);
+
+
+                    var service = new google.maps.DistanceMatrixService;
+                    service.getDistanceMatrix({
+                        origins: [origin],
+                        destinations: [destination],
+                        travelMode: 'DRIVING',
+                        unitSystem: google.maps.UnitSystem.METRIC,
+                        avoidHighways: false,
+                        avoidTolls: false
+                    }, function(response, status) {
+                        if (status !== 'OK') {
+                            alert('Error was: ' + status);
+                        } else {
+                            var originList = response.originAddresses;
+                            //var destinationList = response.destinationAddresses;
+
+                            var outputDiv1 = document.getElementById('myField');
+
+                            outputDiv1.innerHTML = '';
+                            deleteMarkers(markersArray);
+
+
+                            for (var i = 0; i < originList.length; i++) {
+                                var results = response.rows[i].elements;
+
+                                for (var j = 0; j < results.length; j++) {
+
+
+                                    outputDiv1.innerHTML +=
+                                            results[j].duration.text + '<br>';
+
+                                    var str = results[j].duration.text;
+                                    var time = str.split(" ");
+                                    var days = null;
+                                    var hours = null;
+                                    var mins = null;
+                                    for (var i = 0; i < time.length; i++) {
+                                        //alert(time[i]);
+                                        if (time[i + 1] == 'days') {
+                                            days = time[i];
+
+                                        }
+                                        else if (time[i + 1] == 'hours') {
+                                            hours = time[i];
+
+                                        }
+                                        else if (time[i + 1] == 'mins') {
+                                            mins = time[i];
+                                        }
+                                        i++;
+
+                                    }
+                                    ajaxcall(days, hours, mins);
                                 }
-                            });
-                        }
-
-
-                        function deleteMarkers(markersArray) {
-                            for (var i = 0; i < markersArray.length; i++) {
-                                markersArray[i].setMap(null);
                             }
-                            markersArray = [];
                         }
-        </script>
-        <script async defer
-                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyARa_203DMXCJebfpnw8n5XiYM_F1Xi0zk&callback=initMap">
-        </script>
+                    });
 
-    </body>
+                }
+            });
+
+
+
+        }
+
+        function ajaxcall(days, hours, mins) {
+
+            //alert(hours);
+            $.ajax({
+                url: "GeoDistanceCheckServlet?flag=send",
+                type: "POST",
+                data: {
+                    hours: hours, days: days, mins: mins
+                },
+                success: function(data) {
+                    //alert("success");
+                    //alert(data.toString());
+                    //alert(JSON.stringify(data));
+
+                }
+            });
+        }
+
+
+
+        function deleteMarkers(markersArray) {
+            for (var i = 0; i < markersArray.length; i++) {
+                markersArray[i].setMap(null);
+            }
+            markersArray = [];
+        }
+    </script>
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyARa_203DMXCJebfpnw8n5XiYM_F1Xi0zk&callback=initMap">
+    </script>
+
+</body>
 </html>

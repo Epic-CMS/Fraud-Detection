@@ -46,13 +46,6 @@ public class GeoDistanceCheckServlet extends HttpServlet {
         GeoDistanceCheckManager manager1 = new GeoDistanceCheckManager();
         List<GeoDistanceCheckBean> beanList1 = null;
         beanList1 = manager1.getGeoCheckTrans("4024007188976491");
-        request.getSession().setAttribute("PAN", beanList1.get(0).getF2_PAN());
-        for (int i = 0; i < 2; i++) {
-            request.getSession().setAttribute("F2_PAN" + i, beanList1.get(i).getF2_PAN());
-            request.getSession().setAttribute("F7_TRANSMISSION_DATETIME" + i, beanList1.get(i).getF7_TRANSMISSION_DATETIME());
-            request.getSession().setAttribute("F43_CARD_ACCCEPT_NAME" + i, beanList1.get(i).getF43_CARD_ACCCEPT_NAME());
-
-        }
 
         try (PrintWriter out = response.getWriter()) {
             response.setContentType("text/html;charset=UTF-8");
@@ -71,10 +64,10 @@ public class GeoDistanceCheckServlet extends HttpServlet {
                 String[] d1 = beanList1.get(0).getF7_TRANSMISSION_DATETIME();
                 String[] d2 = beanList1.get(1).getF7_TRANSMISSION_DATETIME();
                 String time1 = d1[0] + d1[1] + d1[2] + d1[3];
-                request.getSession().setAttribute("date1", "month"+d1[0]+" date"+d1[1]+" hour"+d1[2]+" mins"+d1[3]);
+                request.getSession().setAttribute("date1", "month" + d1[0] + " date" + d1[1] + " hour" + d1[2] + " mins" + d1[3]);
                 String time2 = d2[0] + d2[1] + d2[2] + d2[3];
-                request.getSession().setAttribute("date2", "month"+d2[0]+" date"+d2[1]+" hour"+d2[2]+" mins"+d2[3]);
-                
+                request.getSession().setAttribute("date2", "month" + d2[0] + " date" + d2[1] + " hour" + d2[2] + " mins" + d2[3]);
+
                 SimpleDateFormat simpleDateFormat
                         = new SimpleDateFormat("MMddhhmm");
                 Date dateAsString = simpleDateFormat.parse(time1);
@@ -82,6 +75,10 @@ public class GeoDistanceCheckServlet extends HttpServlet {
 
                 if (dateAsString2.getTime() >= dateAsString.getTime()) {
                     long e = dateAsString2.getTime() - dateAsString.getTime();
+                    System.out.print("time old vs time new---------- ");
+                    System.out.println(dateAsString2.getTime());
+                    System.out.println(dateAsString.getTime());
+                    System.out.println(e);
 
                     long days, hours, mins;
                     days = e / (1000 * 60 * 60 * 24);
@@ -101,9 +98,23 @@ public class GeoDistanceCheckServlet extends HttpServlet {
                         }
                     }
 
-                    String dayslong = Long.toString(days);
-                    String hourslong = Long.toString(hours);
-                    String minslong = Long.toString(mins);
+                    String dayslong, hourslong, minslong;
+                    if (days == 0) {
+                        dayslong = "00";
+                    } else {
+                        dayslong = Long.toString(days);
+                    }
+                    if (hours == 0) {
+                        hourslong = "00";
+                    } else {
+                        hourslong = Long.toString(hours);
+                    }
+                    if (mins == 0) {
+                        minslong = "00";
+                    } else {
+                        minslong = Long.toString(mins);
+                    }
+
                     String trandiffString = (dayslong + hourslong + minslong);
 
                     System.out.print("Transaction Difference---------- ");
@@ -112,12 +123,14 @@ public class GeoDistanceCheckServlet extends HttpServlet {
                     System.out.println(trandifference);
 
                     long realVsTranDiff = trandifference - realdifference;
-                    if (realVsTranDiff <= 30) {
+                    System.out.print("Transaction vs real time Difference---------- ");
+                    System.out.println(realVsTranDiff);
+                    if (realVsTranDiff >= 0) {
                         request.getSession().setAttribute("Status", "Not a Fraudulent Transaction");
                         System.out.print("Not a Fraudulent Transaction");
                     } else {
-                        request.getSession().setAttribute("Status", "Fraudulent Transaction Detected !");
-                        System.out.print("Fraudulent Transaction Detected !");
+                        request.getSession().setAttribute("Status", "a Fraudulent Transaction !");
+                        System.out.print("Fraudulent Transaction !");
                     }
                 } else {
                     request.getSession().setAttribute("Status", "Transaction error !");
@@ -139,19 +152,17 @@ public class GeoDistanceCheckServlet extends HttpServlet {
 
                 out.print(jsono);
                 //getServletContext().getRequestDispatcher("/geoLocationCheck.jsp").forward(request, response);
+            } else if (request.getParameter("flag").equals("loaddata")) {
+
+                request.getSession().setAttribute("PAN", beanList1.get(0).getF2_PAN());
+                for (int i = 0; i < 2; i++) {
+                    request.getSession().setAttribute("F2_PAN" + i, beanList1.get(i).getF2_PAN());
+                    request.getSession().setAttribute("F7_TRANSMISSION_DATETIME" + i, beanList1.get(i).getF7_TRANSMISSION_DATETIME());
+                    request.getSession().setAttribute("F43_CARD_ACCCEPT_NAME" + i, beanList1.get(i).getF43_CARD_ACCCEPT_NAME());
+
+                }
+                //getServletContext().getRequestDispatcher("/geoLocationCheck.jsp").forward(request, response);
             }
-//            if (request.getParameter("flag").equals("tablefill")) {
-//                //getServletContext().getRequestDispatcher("/geoLocationCheck.jsp").forward(request, response);
-//                JSONObject jsont = new JSONObject();
-//                response.setContentType("json");
-//                for (int i = 0; i < 2; i++) {
-//                    jsont.put("F2_PAN" + i, beanList1.get(i).getF2_PAN());
-//                    jsont.put("F7_TRANSMISSION_DATETIME" + i, beanList1.get(i).getF7_TRANSMISSION_DATETIME());
-//                    jsont.put("F43_CARD_ACCCEPT_NAME" + i, beanList1.get(i).getF43_CARD_ACCCEPT_NAME());
-//
-//                    out.print(jsont);
-//                }
-//            }
 
         } catch (Exception eg) {
             printStackTrace();
