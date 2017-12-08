@@ -83,11 +83,11 @@
                                 <a href="#"><i class="fa fa-check-square-o nav_icon"></i>Rules<span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
                                     <li>
-                                        <a href="grids.html">Card Number</a>
-                                        <a href="grids.html">Customer</a>
-                                        <a href="grids.html">Geographic</a>
-                                        <a href="amount.html">Amount</a>
-                                        <a href="grids.html">Product Details</a>
+                                        <a href="#">Card Number</a>
+                                        <a href="#">Customer</a>
+                                        <a href="geoLocationCheck.jsp">Geographic</a>
+                                        <a href="ViewProfile">Amount</a>
+                                        <a href="#">Product Details</a>
                                     </li>
                                 </ul>
                                 <!-- /.nav-second-level -->
@@ -111,13 +111,13 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-md-11">
-                                
+
                                 <form class="form-horizontal" action="AddProfile" method="post">
                                     <div class="form-group">
                                         <div class="col-sm-6">
                                             <label for="focusedinput" class="col-sm-3 control-label"><b>Level:</b></label>
                                             <div class="col-sm-9">
-                                                <input type="text" class="form-control1" name="l_name" placeholder="Level" required="required">
+                                                <input type="text" class="form-control1" name="l_name" placeholder="Level" onkeypress="return isNumberKey(event)" required="required"/>
                                             </div>
                                         </div>
                                     </div>
@@ -126,7 +126,7 @@
                                         <div class="col-sm-6">
                                             <label for="focusedinput" class="col-sm-3 control-label"><b>Limit From:</b></label>
                                             <div class="col-sm-9">
-                                                <input type="text" class="form-control1" name="l_from" placeholder="Limit From" required="required">
+                                                <input type="text" class="form-control1" name="l_from" placeholder="Limit From" onkeypress="return isNumberKey(event)" required="required"/>
                                             </div>
                                         </div>
                                     </div>
@@ -135,7 +135,7 @@
                                         <div class="col-sm-6">
                                             <label for="focusedinput" class="col-sm-3 control-label"><b>Limit To:</b></label>
                                             <div class="col-sm-9">
-                                                <input type="text" class="form-control1" name="l_to" placeholder="Limit To" required="required">
+                                                <input type="text" class="form-control1" name="l_to" placeholder="Limit To" onkeypress="return isNumberKey(event)" required="required"/>
                                             </div>
                                         </div>
                                     </div>
@@ -149,15 +149,23 @@
 
                                     </div>
                                 </form>
-                               
+
+                            </div>
                         </div>
                     </div>
                 </div>
+                <!-- /#page-wrapper -->
             </div>
-            <!-- /#page-wrapper -->
-        </div>
-        <!-- /#wrapper -->
-        <!-- Bootstrap Core JavaScript -->
-        <script src="js/bootstrap.min.js"></script>
+            <!-- /#wrapper -->
+            <!-- Bootstrap Core JavaScript -->
+            <script src="js/bootstrap.min.js"></script>
+            <script>
+                            function isNumberKey(evt) {
+                                var charCode = (evt.which) ? evt.which : event.keyCode
+                                if (charCode > 31 && (charCode < 48 || charCode > 57))
+                                    return false;
+                                return true;
+                            }
+            </script>
     </body>
 </html>

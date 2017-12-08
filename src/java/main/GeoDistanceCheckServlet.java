@@ -39,15 +39,13 @@ public class GeoDistanceCheckServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, Exception {
 
-        GeoDistanceCheckManager manager1 = new GeoDistanceCheckManager();
-        List<GeoDistanceCheckBean> beanList1 = null;
-        String LastTranPAN = manager1.getFinalTran();
-        beanList1 = manager1.getGeoCheckTrans(LastTranPAN);
-        
         //String LastTranPAN;
-
         try (PrintWriter out = response.getWriter()) {
             response.setContentType("text/html;charset=UTF-8");
+            GeoDistanceCheckManager manager1 = new GeoDistanceCheckManager();
+            List<GeoDistanceCheckBean> beanList1 = null;
+            String LastTranPAN = manager1.getFinalTran();
+            beanList1 = manager1.getGeoCheckTrans(LastTranPAN);
 
             if (request.getParameter("flag").equals("send")) {
 
@@ -59,7 +57,7 @@ public class GeoDistanceCheckServlet extends HttpServlet {
                 long realdifference = Long.parseLong(numberAsString);
                 System.out.print("Real Difference---------- ");
                 System.out.println(realdifference);
-                request.getSession().setAttribute("actualDifference", days1+" days "+hours1+" hours "+mins1+" mins ");
+                request.getSession().setAttribute("actualDifference", days1 + " days " + hours1 + " hours " + mins1 + " mins ");
 
                 String[] d1 = beanList1.get(0).getF7_TRANSMISSION_DATETIME();
                 String[] d2 = beanList1.get(1).getF7_TRANSMISSION_DATETIME();
@@ -82,30 +80,30 @@ public class GeoDistanceCheckServlet extends HttpServlet {
 
                     long days, hours, mins;
                     days = e / (1000 * 60 * 60 * 24);
-                    
+
                     if (days > 0) {
                         hours = e / (1000 * 60 * 60) - days * 24;
                         if (hours > 0) {
                             mins = e / (1000 * 60) - hours * 60 - days * 24 * 60;
-                            System.out.println("minss1s-------"+mins);
+                            System.out.println("minss1s-------" + mins);
                         } else {
-                            mins = e / (1000 * 60)- days * 24 * 60;
-                            System.out.println("minss2s-------"+mins);
+                            mins = e / (1000 * 60) - days * 24 * 60;
+                            System.out.println("minss2s-------" + mins);
                         }
                     } else {
                         hours = e / (1000 * 60 * 60);
                         if (hours > 0) {
                             mins = e / (1000 * 60) - hours * 60;
-                            System.out.println("minss3s-------"+mins);
+                            System.out.println("minss3s-------" + mins);
                         } else {
                             mins = e / (1000 * 60);
-                            System.out.println("minss4s-------"+mins);
+                            System.out.println("minss4s-------" + mins);
                         }
                     }
-                    System.out.println("daysss-------"+days);
-                    System.out.println("hourss-------"+hours);
-                    request.getSession().setAttribute("transactionDifference", days+" days "+hours+" hours "+mins+" mins ");
-                    
+                    System.out.println("daysss-------" + days);
+                    System.out.println("hourss-------" + hours);
+                    request.getSession().setAttribute("transactionDifference", days + " days " + hours + " hours " + mins + " mins ");
+
                     String dayslong, hourslong, minslong;
                     if (days == 0) {
                         dayslong = "00";
@@ -152,7 +150,6 @@ public class GeoDistanceCheckServlet extends HttpServlet {
                 String[] locationArrayB = locationB.split("\\s+");
 
                 //System.out.print("s" + locationArrayA[1] + "e");
-
                 JSONObject jsono = new JSONObject();
                 response.setContentType("json");
                 jsono.put("origin", locationArrayA[1] + ",Srilanka");
@@ -161,9 +158,6 @@ public class GeoDistanceCheckServlet extends HttpServlet {
                 out.print(jsono);
                 //getServletContext().getRequestDispatcher("/geoLocationCheck.jsp").forward(request, response);
             } else if (request.getParameter("flag").equals("loaddata")) {
-
-                
-                
 
                 request.getSession().setAttribute("PAN", beanList1.get(0).getF2_PAN());
                 for (int i = 0; i < 2; i++) {

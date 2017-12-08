@@ -48,9 +48,11 @@ public class GeoDistanceCheckPersistence {
 
                 i++;
             }
-            List<GeoDistanceCheckBean> lastTrans = tranList.subList(tranList.size() - 2, tranList.size());
-
-            return lastTrans;
+            if(i>1){
+                List<GeoDistanceCheckBean> lastTrans = tranList.subList(tranList.size() - 2, tranList.size());
+                return lastTrans;
+            }
+                return tranList;
 
         } catch (Exception ex) {
 

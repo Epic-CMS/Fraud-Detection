@@ -109,7 +109,7 @@
                     <li><a href="geoLocationCheck.jsp">Geographic</a></li>
                 </ul>
                 <div class="graphs">
-                    <a href="create_newrule.jsp"><button type="button" class="btn btn_5 btn-lg btn-primary">Create New Rule</button></a> 
+                    <a href="geoLocationCheck.jsp"><button type="button" class="btn btn_5 btn-lg btn-primary">Load</button></a> 
                     <br><br>
 
                     <br><br>
@@ -124,9 +124,9 @@
                             String transactionDifference = (String) session.getAttribute("transactionDifference");
                             String actualDifference = (String) session.getAttribute("actualDifference");
                             %>
-                            <div>Last transaction of PAN "<%= PAN%>" is  <b><%= Status%></b></div>
-                            <div>Time to travel between two places - <b> <%= transactionDifference%></b></div>
-                            <div>Actual Transaction period difference - <b> <%= actualDifference%></b></div>
+                            <div><font face="calibri" color="#31708f">Last transaction of PAN "<%= PAN%>" is  <b><%= Status%></b></font></div>
+                            <div><font face="calibri" color="#31708f">Time to travel between two places - <b> <%= actualDifference%></b></font></div>
+                            <div><font face="calibri" color="#31708f">Actual Transaction period difference - <b> <%= transactionDifference%></b></font></div>
                             <br><br>
                         </div>
                     </div>

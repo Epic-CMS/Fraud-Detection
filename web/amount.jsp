@@ -110,6 +110,7 @@
                 </ul>
                 <div class="graphs">
                     <a href="add_profile_levels.jsp"><button type="button" class="btn btn_5 btn-lg btn-primary">Add Profile Levels</button></a>
+                    <a href="UserLevelAssignServlet"><button type="button" class="btn btn_5 btn-lg btn-primary">UserLevelAssignServlet</button></a>
                     <br><br>
                     
                     <div class="bs-example4" data-example-id="contextual-table">
