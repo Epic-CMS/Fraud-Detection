@@ -44,4 +44,28 @@ public class GeoDistanceCheckManager {
         }
         return beanList;
     }
+     
+    public String getFinalTran() throws Exception {
+        String LastTranPAN;
+        GeoDistanceCheckPersistence persistence;
+        
+        
+        try {
+            con = DBConnection.getConnection();
+            persistence = new GeoDistanceCheckPersistence();
+            con.setAutoCommit(true);
+            LastTranPAN = persistence.getFinalTran(con);
+        } catch (Exception ex) {
+            throw ex;
+        } finally {
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    throw e;
+                }
+            }
+        }
+        return LastTranPAN;
+    }
 }

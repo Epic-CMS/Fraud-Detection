@@ -121,9 +121,12 @@
                             String F43_CARD_ACCCEPT_NAME1 = (String) session.getAttribute("F43_CARD_ACCCEPT_NAME1");
                             String date1 = (String) session.getAttribute("date1");
                             String date2 = (String) session.getAttribute("date2");
+                            String transactionDifference = (String) session.getAttribute("transactionDifference");
+                            String actualDifference = (String) session.getAttribute("actualDifference");
                             %>
                             <div>Last transaction of PAN "<%= PAN%>" is  <b><%= Status%></b></div>
-
+                            <div>Time to travel between two places - <b> <%= transactionDifference%></b></div>
+                            <div>Actual Transaction period difference - <b> <%= actualDifference%></b></div>
                             <br><br>
                         </div>
                     </div>
